@@ -59,15 +59,15 @@
     <!-- OpenGraph Twitter / Facebook --> 
     <meta property="og:title" content="Lite">
     <meta property="og:type" content="website">
-    <!-- TODO -->
     <meta property="og:url" content="https://github.com/CICCIOSGAMINO/lite">
     <meta property="og:site_name" content="Lite">
     <meta property="og:author" content="@cicciosgamino">
     <meta property="og:description" content="WebApp, WebApp Starter, Lit, WebComponents, Web App, Web, Open Source">
     <meta property="og:image" content="images/manifest/icon-144x144.png" />
 
-    <meta name="twitter:author" content="@cicciosgamino">
+    <!-- https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started -->
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:author" content="@cicciosgamino">
     <meta name="twitter:site" content="@cicciosgamino">
     <meta name="twitter:description" content="WebApp, WebApp Starter, Lit, WebComponents, Web App, Web, Open Source">
 
@@ -79,7 +79,7 @@
       const baseUrl = document.querySelector('base').href;
       console.log(`@URL >> ${baseUrl}`)
 
-      /*
+      /* TODO
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register(baseUrl + 'service-worker.js', {
@@ -114,6 +114,13 @@
         /* base rem unit (10px) */
         font-size: 62.5%;
 
+        /* Material CSS Custom Properties https://material.io/develop/web/guides/typography
+          <STYLE>   headline1 ... headline6, subtitle1, subtitle2, body1, body2
+                    caption, button, overline
+        */
+        --mdc-typography-font-family: 'Manrope', sans-serif;
+        --mdc-typography-button-font-size: 2rem;
+
         --my-color: #324FFF;
         /* material design grey scale */ 
         --md-grey-100: #F5F5F5;
@@ -129,9 +136,6 @@
         font-family: 'Manrope', sans-serif;
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
-        /* background: linear-gradient(to bottom right, #fff, #78909C); */
-        background: linear-gradient(
-          to bottom right, #fff, var(--my-color));
       }
 
       app-lite:not([dark]) {
@@ -165,7 +169,6 @@
         --mdc-theme-on-second: whitesmoke;
         --mdc-theme-on-background: whitesmoke;
         --mdc-theme-on-surface: whitesmoke;
-
       }
 
       /* styling for rendering while resources are loading  TEXT-VERSION
@@ -198,7 +201,8 @@
     <app-lite unresolved title="Lite"></app-lite>
 
     <noscript>
-      Please enable JavaScript to view this website.
+      <h1>Enable JavaScript</h1>
+      <h3>Lite works only with JavaScript!</h3>
     </noscript>
     <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs 
     <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script> --> 
@@ -208,16 +212,22 @@
     <!-- listen for prefers-color-scheme: dark media query -->
     <script>
 
-      // TODO
-      window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
+      // Check if dark mode is supported by browser
+      if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
+        // supported
+        console.log('@DARK-MODE >> Supported 🎉')
+        window.matchMedia('(prefers-color-scheme: dark)').addListener((e) => {
         const appLite = document.querySelector('app-lite')
         const darkModeOn = e.matches;
         darkModeOn ? 
           appLite.setAttribute('dark', ``) : 
           appLite.removeAttribute('dark')
         
-        console.log(`Dark mode is ${darkModeOn ? '🌒 on' : '☀️ off'}.`)
+        console.log(`Dark mode is ${darkModeOn ? '🌒 on' : '☀🌕 off'}.`)
       })
+      } else {
+        console.log('@DARK-MODE >> NOT Supported ⛔')
+      }
     </script>
 
     <script>
@@ -226,8 +236,8 @@
         console.log(
           `%c %cLite \n%cChamaeleonidae WebApp `,
           `padding: 37px 33px 15px; background:url(${baseUrl}images/manifest/icon96x96.png) no-repeat;background-size:cover;`,
-          `font-size: 32px; color: #673AB7`,
-          `font-size: 16px; color: rgb(40, 51, 76);`
+          `font-size: 32px; color: #00e8ff;`,
+          `padding: 10px 0px 0px 0px; font-size: 16px; color: #283198;`
         );
 
         document.querySelector('app-lite').removeAttribute('unresolved')

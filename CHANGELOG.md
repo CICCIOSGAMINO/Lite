@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.0] - 20-05-2021
+### Added
+  - Element custom-footer bug-report Init
+
 ## [2.1.0] - 02-05-2021
 ### Updated 
   - @material/mwc-* to v0.21.0

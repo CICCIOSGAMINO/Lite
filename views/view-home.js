@@ -1,5 +1,6 @@
 // view-home (Home)
 import { html, css, LitElement } from 'lit'
+import '../components/custom-footer'
 
 class ViewHome extends LitElement {
   static get properties () {
@@ -12,7 +13,7 @@ class ViewHome extends LitElement {
   static get styles () {
     return css`
       :host {
-        background-color: red;
+        display: block;
       }
     `
   }
@@ -42,6 +43,8 @@ class ViewHome extends LitElement {
       <h3>Trigger some 5sec Async Tasks!</h3>
       <p>Pending Tasks (${this._pendingCount}) ${this._hasPendingChildren}</p>
       <button @click="${this._handleClick}">Fire pending-state </button>
+
+      <custom-footer></custom-footer>
     `
   }
 }

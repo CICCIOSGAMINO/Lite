@@ -1,6 +1,6 @@
 {
   "name": "lite",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "WebApp base template build with Lit, Material Design and Web Platform",
   "main": "pwa-lite.js",
   "repository": "https://github.com/CICCIOSGAMINO/lite.git",

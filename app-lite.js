@@ -364,20 +364,20 @@ class AppLite extends PendingContainer(LitElement) {
       <!-- Main -->
       <main>
 
-      <!-- Progress Bar for Async tasks -->
-      <mwc-linear-progress 
-        indeterminate 
-        .closed="${!this._hasPendingChildren}">
-      </mwc-linear-progress>
+        <!-- Progress Bar for Async tasks -->
+        <mwc-linear-progress 
+          indeterminate 
+          .closed="${!this._hasPendingChildren}">
+        </mwc-linear-progress>
 
-      <!-- Layout --> 
+        <!-- Layout --> 
         ${this.drawerMode ? drawerLayout : tabsLayout}
         ${this._renderMainContent()}
 
       </main>
 
       <!-- Snackbar -->
-        ${materialSnackbar}
+      ${materialSnackbar}
     `
   }
 }

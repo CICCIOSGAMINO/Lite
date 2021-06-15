@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 15-06-2021
+### Added
+  - Vite dev/build workflow
+
 ## [2.2.0] - 20-05-2021
 ### Added
   - Element custom-footer bug-report Init

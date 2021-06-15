@@ -4,6 +4,18 @@ Lite - PWA Starter Pack
 
 Simple web app template build on top of [Lit](https://github.com/lit) , Material Design and Web Platform. This PWA template is based on the bright way showed us from Polymer project and all web entusiasts!
 
+# Vite
+Vite is the framework used to dev / build the Lite WebApp template. So let's check !
+
+```bash
+# use Vite dev server
+npm run dev
+# build into dist folder
+npm run build
+# preview with the build files
+npm run preview
+```
+
 # /images 
 Images folder contains all images the app needs. You can create all the png logo images starting from a svg file with an automatic process write into  **script_svgtopng** script. Let's use it: 
 

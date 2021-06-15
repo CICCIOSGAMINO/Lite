@@ -1,13 +1,19 @@
 {
   "name": "lite",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "description": "WebApp base template build with Lit, Material Design and Web Platform",
-  "main": "pwa-lite.js",
+  "main": "dist/lite.es.js",
+  "exports": "./dist/lite.es.js",
+  "files": [
+    "dist"
+  ],
   "repository": "https://github.com/CICCIOSGAMINO/lite.git",
   "author": "@cicciosgamino <marco.canali@gmail.com>",
-  "license": "Apache-2.0",
+  "license": "GPLv3.0",
   "scripts": {
-    "serve": "wds --node-resolve --watch --app-index index.html"
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --port 3000 --host"
   },
   "private": false,
   "dependencies": {
@@ -25,6 +31,6 @@
     "page": "^1.11.6"
   },
   "devDependencies": {
-    "@web/dev-server": "^0.1.17"
+    "vite": "^2.3.7"
   }
 }

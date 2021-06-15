@@ -22,19 +22,19 @@
     <base href="./">
 
     <!-- Preload the Logo SVG -->
-    <link rel="preload" as="image" href="images/lite.svg">
+    <link rel="preload" as="image" href="/images/lite.svg">
 
-    <link rel="icon" href="images/favicon.ico">
-    <link id="favicon" rel="shortcut icon" href="images/favicon/favicon-16.png" sizes="16x16">
-    <link id="favicon" rel="shortcut icon" href="images/favicon/favicon-32.png" sizes="32x32">
-    <link id="favicon" rel="shortcut icon" href="images/favicon/favicon-64.png" sizes="64x64">
-    <link id="favicon" rel="shortcut icon" href="images/favicon/favicon-96.png" sizes="96x96">
+    <link rel="icon" href="/images/favicon.ico">
+    <link id="favicon" rel="shortcut icon" href="/images/favicon/favicon-16.png" sizes="16x16">
+    <link id="favicon" rel="shortcut icon" href="/images/favicon/favicon-32.png" sizes="32x32">
+    <link id="favicon" rel="shortcut icon" href="/images/favicon/favicon-64.png" sizes="64x64">
+    <link id="favicon" rel="shortcut icon" href="/images/favicon/favicon-96.png" sizes="96x96">
 
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="application-name" content="Lite">
-    <link rel="icon" sizes="128x128" href="images/manifest/icon128x128.png">
-    <link rel="icon" sizes="192x192" href="images/manifest/icon192x192.png">
+    <link rel="icon" sizes="128x128" href="/images/manifest/icon128x128.png">
+    <link rel="icon" sizes="192x192" href="/images/manifest/icon192x192.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -42,17 +42,17 @@
     <meta name="apple-mobile-web-app-title" content="Lite">
 
     <!-- Homescreen icons -->
-    <link rel="apple-touch-icon" href="images/manifest/icon-48x48.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/manifest/icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="96x96" href="images/manifest/icon-96x96.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="images/manifest/icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="images/manifest/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/images/manifest/icon-48x48.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/icon-192x192.png">
     <!-- Display on the MAC dock -->
-    <link rel="fluid-icon" type="image/png" href="images/manifest/icon-192x192.png">
+    <link rel="fluid-icon" type="image/png" href="/images/manifest/icon-192x192.png">
     
 
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/manifest/icon-144x144.png">
+    <meta name="msapplication-TileImage" content="/images/manifest/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#fff">
     <meta name="msapplication-tap-highlight" content="no">
 
@@ -63,7 +63,7 @@
     <meta property="og:site_name" content="Lite">
     <meta property="og:author" content="@cicciosgamino">
     <meta property="og:description" content="WebApp, WebApp Starter, Lit, WebComponents, Web App, Web, Open Source">
-    <meta property="og:image" content="images/manifest/icon-144x144.png" />
+    <meta property="og:image" content="/images/manifest/icon-144x144.png" />
 
     <!-- https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started -->
     <meta name="twitter:card" content="summary_large_image">
@@ -192,7 +192,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('../images/lite.svg') center/340px no-repeat;
+        background: url('/images/lite.svg') center/340px no-repeat;
         margin-top: -120px;
       }
     </style>
@@ -204,10 +204,8 @@
       <h1>Enable JavaScript</h1>
       <h3>Lite works only with JavaScript!</h3>
     </noscript>
-    <!-- Load webcomponents-loader.js to check and load any polyfills your browser needs 
-    <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script> --> 
 
-    <script type="module" src="./app-lite.js" crossorigin></script>
+    <script type="module" src="/src/app-lite.js" crossorigin></script>
 
     <!-- listen for prefers-color-scheme: dark media query -->
     <script>

@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0] - 31-08-2021
+### Added
+  - Apple splash-screen s png
+  - meta theme-color
+### Changed
+  - Changed Routing from page.js to @vaadin/router
+  - App component app-lite with no shadow-root
+### Update
+  - vite from v2.3.4 to v2.5.3
+  - manifest.webmanifest
+### Remove
+  - Material Design
+  - Custom Made splash-screen
+
 ## [3.0.0] - 15-06-2021
 ### Added
   - Vite dev/build workflow

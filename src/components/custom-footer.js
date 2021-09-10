@@ -1,7 +1,6 @@
 // import { html, css, LitElement } from 'lit-element'
 import { LitElement, html, css } from 'lit'
 import { linkedinSVG, instagramSVG, facebookSVG } from './iconsSVG'
-import './bug-report'
 
 class CustomFooter extends LitElement {
   static get properties () {
@@ -172,8 +171,6 @@ class CustomFooter extends LitElement {
 
         <!-- Creator part -->
         <div id="madeby">
-          
-          <bug-report></bug-report>
           <p> Made  <mark>🧑‍💻</mark> by 
             <a href="https://github.com/CICCIOSGAMINO">
               @cicciosgamino

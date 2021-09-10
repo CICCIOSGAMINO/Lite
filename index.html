@@ -3,14 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <!-- WebApp Config -->
+
     <title>Lite</title>
+
     <meta name="generator" content="lite(@cicciosgamino)">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-    <!-- See https://goo.gl/OOhYW5 -->
+    <meta name="viewport" 
+      content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no, viewport-fit=cover">
+
+    <!-- Startup configuration https://www.w3.org/TR/appmanifest/ -->
     <link rel="manifest" href="/manifest.webmanifest">
-    <!-- See https://goo.gl/qRE0vM -->
-    <meta name="theme-color" content="#fff">
+
+    <!-- Fallback application for legacy browser -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Lite">
+    <link rel="icon" sizes="128x128" href="/images/icons/icon128x128.png">
+    <link rel="icon" sizes="192x192" href="/images/icons/icon192x192.png">
+
+    <!-- Theme & Scheme -->
+    <meta name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#ffffff">
+    <meta name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#333333">
     <meta name="color-scheme" content="dark light">
 
     <!-- Description -->
@@ -21,38 +36,75 @@
     <!-- Use relative path with base and rootPath --> 
     <base href="./">
 
-    <!-- Preload the Logo SVG -->
-    <link rel="preload" as="image" href="/images/lite.svg">
-
+    <!-- Preload the Logo SVG for custom splash-screen -->
+    <link rel="preload" as="image" href="/images/icons/icon.svg">
+    
     <link rel="icon" href="/images/favicon.ico">
-    <link id="favicon" rel="shortcut icon" href="/images/favicon/favicon-16.png" sizes="16x16">
-    <link id="favicon" rel="shortcut icon" href="/images/favicon/favicon-32.png" sizes="32x32">
-    <link id="favicon" rel="shortcut icon" href="/images/favicon/favicon-64.png" sizes="64x64">
-    <link id="favicon" rel="shortcut icon" href="/images/favicon/favicon-96.png" sizes="96x96">
+    <link id="favicon" rel="shortcut icon" href="/images/icons/icon16x16.png" sizes="16x16">
+    <link id="favicon" rel="shortcut icon" href="/images/icons/icon32x32.png" sizes="32x32">
+    <link id="favicon" rel="shortcut icon" href="/images/icons/icon64x64.png" sizes="64x64">
+    <link id="favicon" rel="shortcut icon" href="/images/icons/icon96x96.png" sizes="96x96">
 
-    <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Lite">
-    <link rel="icon" sizes="128x128" href="/images/manifest/icon128x128.png">
-    <link rel="icon" sizes="192x192" href="/images/manifest/icon192x192.png">
-
-    <!-- Add to homescreen for Safari on iOS -->
+    <!-- Apple Safari Pinned tabs -->
+    <link rel="mask-icon" href="/images/icons/icon.svg" color="#F5F5F5">
+    <!-- Apple - hidding Safari User Interface Components -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <!-- Apple - Specifying a launch screen image -->
+    <link rel="apple-touch-startup-image" href="/images/icons/icon180x180.png">
+    <!-- Apple - Adding a launch icon title -->
     <meta name="apple-mobile-web-app-title" content="Lite">
 
-    <!-- Homescreen icons -->
-    <link rel="apple-touch-icon" href="/images/manifest/icon-48x48.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/icon-96x96.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/icon-192x192.png">
-    <!-- Display on the MAC dock -->
-    <link rel="fluid-icon" type="image/png" href="/images/manifest/icon-192x192.png">
-    
+    <!-- Apple - Homescreen icons -->
+    <link rel="apple-touch-icon" href="/images/icons/ico58x58.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/icon144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/icon152x152.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/images/icons/icon167x167.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/icon180x180.png">
+    <!-- Apple - Display on the MAC dock -->
+    <link rel="fluid-icon" type="image/png" href="/images/icons/icon192x192.png">
 
+    <!-- Apple device Splash-Screen - iPhone 5 (640px x 1136px) -->
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/iphone5_splash.png" 
+      media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" />
+    <!-- Apple device Splash-Screen - iPhone 8, 7, 6s, 6 (750px x 1334px) -->
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/iphone6_splash.png" 
+      media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/iphoneplus_splash.png" 
+      media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" />
+    <!-- Apple device Splash-Screen - iPhone X (1125px x 2436px) -->
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/iphonex_splash.png" 
+      media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" />
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/iphonexr_splash.png" 
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" />
+    <!-- Apple device Splash-Screen - iPhone 8 Plus, 7 Plus, 6s Plus, 6 Plus (1242px x 2208px) -->
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/iphonexsmax_splash.png" 
+      media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" />
+    <!-- Apple device Splash-Screen - iPad Mini, Air (1536px x 2048px) -->
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/ipad_splash.png" 
+      media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" />
+    <!-- Apple device Splash-Screen - iPad Pro 10.5" (1668px x 2224px) -->
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/ipadpro1_splash.png" 
+      media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" />
+    <link rel="apple-touch-startup-image"
+      href="/images/splashs/ipadpro3_splash.png" 
+      media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" />
+    <!-- Apple device Splash-Screen - iPad Pro 12.9" (2048px x 2732px) -->
+    <link rel="apple-touch-startup-image"
+      href="/images/splash/ipadpro2_splash.png" 
+      media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" />
+            
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="/images/manifest/icon-144x144.png">
+    <meta name="msapplication-TileImage" content="/images/icons/icon144x144.png">
     <meta name="msapplication-TileColor" content="#fff">
     <meta name="msapplication-tap-highlight" content="no">
 
@@ -63,7 +115,7 @@
     <meta property="og:site_name" content="Lite">
     <meta property="og:author" content="@cicciosgamino">
     <meta property="og:description" content="WebApp, WebApp Starter, Lit, WebComponents, Web App, Web, Open Source">
-    <meta property="og:image" content="/images/manifest/icon-144x144.png" />
+    <meta property="og:image" content="/images/icons/icon144x144.png" />
 
     <!-- https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started -->
     <meta name="twitter:card" content="summary_large_image">
@@ -89,101 +141,226 @@
       }  */ 
       
     </script>
-
-    <!-- Material -->
-    <link rel="preload" href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" as="style" type="text/css">
-
-    <!-- Add any global styles for body, document, etc. -->
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
     
     <style>
+      /* Manrope
       @font-face {
         font-family: 'Manrope';
-        /* font-style: normal; */
         src: local('Manrope'), url('/fonts/Manrope-VariableFont_wght.ttf') format('truetype-variations');
-        /* The browser draws the text immediately in the fallback font if the font
-           isn't loaded, then swaps it with the webfont when it eventually loads
-           See: https://developers.google.com/web/updates/2016/02/font-display
-        */
         font-display: swap;
         font-weight: 1 999;
+      } */
+
+      /* BLOKK */
+      @font-face {
+        font-family: 'BLOKK';
+        src: url('./fonts/BLOKK/BLOKKNeue-Regular.eot');
+        src: url('./fonts/BLOKK/BLOKKNeue-Regular.eot?#iefix') format('embedded-opentype'),
+            url('./fonts/BLOKK/BLOKKNeue-Regular.woff2') format('woff2'),
+            url('./fonts/BLOKK/BLOKKNeue-Regular.woff') format('woff'),
+            url('./fonts/BLOKK/BLOKKNeue-Regular.otf') format('opentype'),
+            url('./fonts/BLOKK/BLOKKNeue-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      * {
+        /* reset browser defaults */
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+        /* colors */
+        --brand: #324fff;
+        --brand: hsl(232, 100,60);
+        --brand-hue: 232;
+        --brand-saturation: 100;
+        --brand-lightness: 60;
+
+        /* ------------------------- light (default) ------------------------- */
+        --brand-light: hsl(
+          var(--brand-hue)
+          var(--brand-saturation)
+          var(--brand-lightness));
+        /* In a light theme, text should be very dark. Notice how the lightness 
+          of the following colors is low, well under 50% */
+        --text1-light: hsl(var(--brand-hue) var(--brand-saturation) 10%);
+        --text2-light: hsl(var(--brand-hue) 30% 30%);
+        /* Surface colors are the backgrounds, borders and other decorative surfaces
+          that text sits upon or within. In a light theme, these are the light colors,
+          as opposed to the text colors which were dark. To create light colors with
+          hsl, we'll use higher percentage values in the third lightness value. 
+          We'll also lower the saturation, so the light greys don't look too tinted. */
+        --surface1-light: hsl(var(--brand-hue) 25% 90%);
+        --surface2-light: hsl(var(--brand-hue) 20% 99%);
+        --surface3-light: hsl(var(--brand-hue) 20% 92%);
+        --surface4-light: hsl(var(--brand-hue) 20% 85%);
+        /* shadow */
+        --surface-shadow-light: var(--brand-hue) 10% calc(var(--brand-lightness) / 5);
+        --shadow-strength-light: .02;
+
+        /* --------------------------- dark theme ----------------------------
+          The saturation is cut half and lightness reduced a relative 50% */
+        --brand-dark: hsl(
+          var(--brand-hue)
+          calc(var(--brand-saturation) / 2)
+          calc(var(--brand-lightness) / 1.5));
+        /* text */
+        --text1-dark: hsl(var(--brand-hue) 15% 85%);
+        --text2-dark: hsl(var(--brand-hue) 5% 65%);
+        /* surface */
+        --surface1-dark: hsl(var(--brand-hue) 10% 10%);
+        --surface2-dark: hsl(var(--brand-hue) 10% 15%);
+        --surface3-dark: hsl(var(--brand-hue) 5%  20%);
+        --surface4-dark: hsl(var(--brand-hue) 5% 25%);
+        /* shadow */
+        --surface-shadow-dark: var(--brand-hue) 50% 3%;
+        --shadow-strength-dark: .8;
+
+      /* ---------------------------- dim theme -------------------------------
+        This color scheme is all about orchestrating lightness and saturation.
+        There should be enough saturation present to still have a hue visible,
+        but should also just barely pass contrast scores since it's intended 
+        to be dim and low contrast anyway. */
+        --brand-dim: hsl(
+          var(--brand-hue) 
+          calc(var(--brand-saturation) / 1.25)
+          calc(var(--brand-lightness) / 1.25)
+        );
+        --text1-dim: hsl(var(--brand-hue) 15% 75%);
+        --text2-dim: hsl(var(--brand-hue) 10% 61%);
+        --surface1-dim: hsl(var(--brand-hue) 10% 20%);
+        --surface2-dim: hsl(var(--brand-hue) 10% 25%);
+        --surface3-dim: hsl(var(--brand-hue) 5%  30%);
+        --surface4-dim: hsl(var(--brand-hue) 5% 35%);
+        --surface-shadow-dim: var(--brand-hue) 30% 13%;
+        --shadow-strength-dim: .2;
+
+        /* Github method to apply system fonts, directly calling them */
+        --font-family: -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+          "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+        /* DEVELOPER BLOKK STYLE
+        --font-family: 'BLOKK', sans-serif; */
+      }
+
+      :root {
+        color-scheme: light;
+        --brand: var(--brand-light);
+        --text1: var(--text1-light);
+        --text2: var(--text2-light);
+        --surface1: var(--surface1-light);
+        --surface2: var(--surface2-light);
+        --surface3: var(--surface3-light);
+        --surface4: var(--surface4-light);
+        --surface-shadow: var(--surface-shadow-light);
+        --shadow-strength: var(--shadow-strength-light);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --brand: var(--brand-dark);
+          --text1: var(--text1-dark);
+          --text2: var(--text2-dark);
+          --surface1: var(--surface1-dark);
+          --surface2: var(--surface2-dark);
+          --surface3: var(--surface3-dark);
+          --surface4: var(--surface4-dark);
+          --surface-shadow: var(--surface-shadow-dark);
+          --shadow-strength: var(--shadow-strength-dark);
+        }
+      }
+
+      [color-scheme="light"] {
+        color-scheme: light;
+        --brand: var(--brand-light);
+        --text1: var(--text1-light);
+        --text2: var(--text2-light);
+        --surface1: var(--surface1-light);
+        --surface2: var(--surface2-light);
+        --surface3: var(--surface3-light);
+        --surface4: var(--surface4-light);
+        --surface-shadow: var(--surface-shadow-light);
+        --shadow-strength: var(--shadow-strength-light);
+      }
+
+      [color-scheme="dark"] {
+        color-scheme: dark; 
+        --brand: var(--brand-dark);
+        --text1: var(--text1-dark);
+        --text2: var(--text2-dark);
+        --surface1: var(--surface1-dark);
+        --surface2: var(--surface2-dark);
+        --surface3: var(--surface3-dark);
+        --surface4: var(--surface4-dark);
+        --surface-shadow: var(--surface-shadow-dark);
+        --shadow-strength: var(--shadow-strength-dark);
+      }
+
+      [color-scheme="dim"] {
+        color-scheme: dark;
+        --brand: var(--brand-dim);
+        --text1: var(--text1-dim);
+        --text2: var(--text2-dim);
+        --surface1: var(--surface1-dim);
+        --surface2: var(--surface2-dim);
+        --surface3: var(--surface3-dim);
+        --surface4: var(--surface4-dim);
+        --surface-shadow: var(--surface-shadow-dim);
+        --shadow-strength: var(--shadow-strength-dim);
+      }
+
+      /* Each of the themes created in this challenge pass contrast scores.
+        The dim color scheme has the lowest contrast of them, but still 
+        passes the minimum requirements. To help others on the team use good
+        contrasting colors, it's a good idea to create a classname that pairs
+        a surface color with an accessible text color. */
+      .surface1 {
+        background-color: var(--surface1);
+        color: var(--text2);
+      }
+      .surface2 {
+        background-color: var(--surface2);
+        color: var(--text2);
+      }
+      .surface3 {
+        background-color: var(--surface3);
+        color: var(--text1);
+      }
+      .surface4 {
+        background-color: var(--surface4);
+        color: var(--text1);
+      }
+      .rad-shadow {
+        box-shadow:
+          0 2.8px 2.2px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .03)),
+          0 6.7px 5.3px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .01)),
+          0 12.5px 10px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .02)),
+          0 22.3px 17.9px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .02)),
+          0 41.8px 33.4px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + .03)),
+          0 100px 80px hsl(var(--surface-shadow) / var(--shadow-strength));
       }
 
       html {
-        margin: 0;
         /* base rem unit (10px) */
         font-size: 62.5%;
-
-        /* Material CSS Custom Properties https://material.io/develop/web/guides/typography
-          <STYLE>   headline1 ... headline6, subtitle1, subtitle2, body1, body2
-                    caption, button, overline
-        */
-        --mdc-typography-font-family: 'Manrope', sans-serif;
-        --mdc-typography-button-font-size: 2rem;
-
-        --my-color: #324FFF;
-        /* material design grey scale */ 
-        --md-grey-100: #F5F5F5;
-        --md-grey-300: #E0E0E0;
-        --md-grey-500: #959595;
-        --md-grey-700: #616161;
-        --md-grey-900: #212121;
+        block-size: 100%;
       }
 
       body {
-        margin: 0;
-        /* This is a font-stack that tries to use the system-default sans-serifs first */
-        font-family: 'Manrope', sans-serif;
         min-height: 100vh;
+        font-family: var(--font-family);
         -webkit-font-smoothing: antialiased;
+
+        background-color: var(--surface1);
+        color: var(--text1);
       }
 
-      app-lite:not([dark]) {
-        /* custom vars light theme */ 
-        --mdc-theme-primary: var(--my-color);
-        --mdc-theme-primary-variant: #283198;
-        --mdc-theme-secondary: #00e8ff;
-        --mdc-theme-secondary-variant: #00FFFF;
-
-        --mdc-theme-background: whitesmoke;
-        --mdc-theme-surface: whitesmoke;
-        --mdc-theme-on-primary: whitesmoke;
-        --mdc-theme-on-second: #000;
-        --mdc-theme-on-background: #000;
-        --mdc-theme-on-surface: #000;
-
-        --mdc-error: #B00020;
-        --mdc-onerror: #FFFFFF;
+      h1, h2, h3, h4, figure {
+        color: var(--text1);
       }
-
-      app-lite[dark] {
-        /* custom vars dark theme */ 
-        --mdc-theme-primary: var(--my-color);
-        --mdc-theme-primary-variant: #283198;
-        --mdc-theme-secondary: #00e8ff;
-        --mdc-theme-secondary-variant: #00FFFF;
-
-        --mdc-theme-background: var(--md-grey-900);
-        --mdc-theme-surface: var(--md-grey-900);
-        --mdc-theme-on-primary: var(--md-grey-900);
-        --mdc-theme-on-second: whitesmoke;
-        --mdc-theme-on-background: whitesmoke;
-        --mdc-theme-on-surface: whitesmoke;
-      }
-
-      /* styling for rendering while resources are loading  TEXT-VERSION
-      app-lite[unresolved] {
-        display: block;
-        min-height: 101vh;
-        line-height: 68px;
-        text-align: center;
-        font-size: 16px;
-        font-weight: 600;
-        letter-spacing: 0.3em;
-        color: #f5f5f5;
-        padding: 0 16px;
-        overflow: visible;
-      } */ 
 
       /* styling for rendering while resources are laoding   GIF-VERSION */
       app-lite[unresolved] {
@@ -192,13 +369,55 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('/images/lite.svg') center/340px no-repeat;
-        margin-top: -120px;
+        background-image: url('/images/icons/icon.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30% auto;
+      }
+      app-lite[unresolved]::after {
+        content: "Lite v4.0.0";
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 10%;
+        font-size: 2.7rem;
+        color: #333;
+        text-align: center;
+      }
+
+      /* github corner */
+      .github-corner {
+        fill: var(--text2);
+        color: var(--surface1);
+      }
+      .github-corner:hover .octo-arm {
+        animation: octo-wave .5s ease-in-out;
+      }
+
+      @keyframes octo-wave {
+        0%, 100% {
+          transform: rotate(0)
+        }
+        20%, 60% {
+          transform: rotate(-25deg)
+        }
+        40%, 80% {
+          transform: rotate(10deg)
+        }
       }
     </style>
   </head>
   <body>
-    <app-lite unresolved title="Lite"></app-lite>
+
+    <app-lite unresolved></app-lite>
+
+    <a href="https://github.com/CICCIOSGAMINO/Lite" class="github-corner" aria-label="View source on GitHub">
+      <svg width="80" height="80" viewBox="0 0 250 250" style="position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
+      </svg>
+    </a>
 
     <noscript>
       <h1>Enable JavaScript</h1>
@@ -233,11 +452,12 @@
         // Console a Welcome message for Developers 
         console.log(
           `%c %cLite \n%cChamaeleonidae WebApp `,
-          `padding: 37px 33px 15px; background:url(${baseUrl}images/manifest/icon96x96.png) no-repeat;background-size:cover;`,
+          `padding: 37px 33px 15px; background:url(${baseUrl}images/icons/icon96x96.png) no-repeat;background-size:cover;`,
           `font-size: 32px; color: #00e8ff;`,
           `padding: 10px 0px 0px 0px; font-size: 16px; color: #283198;`
-        );
+        )
 
+        // when DOMContentLoaded remove the unresolved attribute
         document.querySelector('app-lite').removeAttribute('unresolved')
       })
     </script>

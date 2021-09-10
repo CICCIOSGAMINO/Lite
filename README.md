@@ -1,12 +1,15 @@
-Lite - PWA Starter Pack
-=======================
+Lite - WebApp Template
+======================
 [TOC]
 
 Simple web app template build on top of [Lit](https://github.com/lit) , Material Design and Web Platform. This PWA template is based on the bright way showed us from Polymer project and all web entusiasts!
 
-# Vite
-Vite is the framework used to dev / build the Lite WebApp template. So let's check !
+**Let's get start** clone the repo with the template, get a brief view to the running template and start build your WebApp. 
+```bash
+git clone --depth=1 https://github.com/CICCIOSGAMINO/Lite.git . && rm -rf ./.git
+```
 
+Vite is the framework used to dev / build / bundle and server the Lite WebApp template. So let's get it a try:
 ```bash
 # use Vite dev server
 npm run dev
@@ -16,7 +19,10 @@ npm run build
 npm run preview
 ```
 
-# /images 
+# Colors
+We build accessible color system dynamic and configurable. The main idea is grasp from interesting [post](https://web.dev/building-a-color-scheme/) of [Adam Argyle](https://nerdy.dev/). Thnks
+
+# Images 
 Images folder contains all images the app needs. You can create all the png logo images starting from a svg file with an automatic process write into  **script_svgtopng** script. Let's use it: 
 
 https://developers.google.com/web/fundamentals/design-and-ux/browser-customization/
@@ -29,21 +35,7 @@ The **script_svgtopng.sh** will create all the png images you need for:
 
 That's the images create from the **script_svgtopng.sh** starting from the svg file you insert into the images folder (insert only one svg, squared file):
 
-+ favicon.ico
-+ manifest/icon48x48.png
-+ manifest/icon48x48.png
-+ manifest/icon48x48.png
-+ manifest/icon96x96.png
-+ manifest/icon128x128.png
-+ manifest/icon144x144.png
-+ manifest/icon192x192.png
-+ manifest/icon256x256.png
-+ manifest/icon384x384.png
-+ manifest/icon512x512.png
-+ favicon/favicon-16.png
-+ favicon/favicon-32.png
-+ favicon/favicon-64.png
-+ favicon/favicon-96.png
+**To runs the script you need imageMagick and InkScape installed!**
 
 ```bash
 # launch the script in a folder with a svg squared logo image to produce 
@@ -51,55 +43,55 @@ That's the images create from the **script_svgtopng.sh** starting from the svg f
 ./script_svgtopng.sh
 ```
 
-**To runs the script you need imageMagick and InkScape installed!**
+# Splash Screen
+A splash screen is a graphical control element consisting of a window containing an image, a logo, and the current version of the software, splash screen disappears when the application's main window appears. Splash screen can be very useful in WebApp because if the index.html main file is well done the Splash Screen is immediately present to the user so we can hidden for some millis the loading stuff of the WebApp.
 
-# WebApp Icons 
-+ icon .ico           : images/favicon.ico
+# Sidenav
 
-## Android/Chrome
-+ tabs-icon (48x48)     : images/manifest/icon48x48.png
-+ tabs-icon (96x96)     : images/manifest/icon96x96.png
-+ normal-icon (128x128) : images/manifest/icon128x128.png
-+ normal-icon (144x144) : images/manifest/icon144x144.png
-+ hires-icon (192x192)  : images/manifest/icon192x192.png
-+ hires-icon (256x256)  : images/manifest/icon256x256.png
-+ hires-icon (384x384)  : images/manifest/icon384x384.png
 
-## IOS Icons 
-+ ios-icon (152x152)  : images/manifest/ios-icon.png
-+ ipad-icon (72x72)   : images/manifest/icon72x72.png
-+ iphone-retina-icon (120x120)  : images/manifest/icon120x120.png
-+ ipad-retina-icon (152x152)    : images/manifest/icon152x152.png
-+ iphone-x-icon (180x180)       : images/manifest/icon180x180.png
-
-## Windows 8/10
-+ small (70x70)     : images/manifest/icon70x70.png
-+ medium (150x150)  : images/manifest/icon150x150.png
-+ big (310x310)     : images/manifest/icon310x310.png
-
-## Handle the mwc-icon-button click 
-With LitElement at the base handling the click or other events on the material design mwc-icon-button it's easy as
-
-# Views Dynamic Import
-The key in speed up the loading time it's avoid the static imports whenever is possible. Preferred dynamic imports they're going to be better for reduce code size down the wire. This pattern is implemented here with the little helper function **lazyLoad**, basically creates a place to put a dynamic import and it takes a template that just going to pass the template forward and render that template when the dynamic import is done.
+# Router
+Routing and Dynamic import are handled by [@vaadin/router](https://vaadin.com/router) Thnks [vaadin](https://vaadin.com/).
 
 ```javascript
-class LitMailApp extends LitElement {
-  // ... 
-  _renderCurrentView () {
-    switch (this.currentView) {
-      case 'inbox':
-        return lazyLoad(
-          import('./litmail-inbox.js'),
-          html`<litmail-inbox .data=${this.data}></litmail-inbox>)`)
-      case 'thread':
-        return lazyLoad(
-          import('./litmail-thread.js'),
-          html`<litmail-thread .data=${this.data}></litmail-thread>`)
-      default: return html`<h3>Default View</h3>`
-    }
+  // init Routing when the DOM's elements are ready
+  firstUpdate () {
+    this.#initRouter()
   }
-}
+
+  #initRouter () {
+    const main = this.renderRoot.querySelector('#main')
+    const router = new Router(main)
+    router.setRoutes([
+      {
+        path: '/',
+        component: 'home-view'
+      },
+      {
+        path: '/one',
+        component: 'one-view',
+        action: () =>
+        import('./views/one-view')
+      },
+      {
+        path: '/two',
+        component: 'two-view',
+        action: () =>
+        import('./views/two-view')
+      },
+      {
+        path: '/three',
+        component: 'three-view',
+        action: () =>
+        import('./views/three-view')
+      },
+      {
+        path: '(.*)',
+        component: 'not-found-view',
+        action: () =>
+        import('./views/not-found-view')
+      }
+    ])
+  }
 ```
 
 # Async Tasks

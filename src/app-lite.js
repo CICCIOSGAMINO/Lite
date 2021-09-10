@@ -1,216 +1,229 @@
 import { LitElement, html, css } from 'lit'
-import page from 'page'
+import { Router } from '@vaadin/router'
 
-/* material design modules */
-import '@material/mwc-drawer'
-import '@material/mwc-tab'
-import '@material/mwc-tab-bar'
-import '@material/mwc-top-app-bar'
-import '@material/mwc-fab'
-import '@material/mwc-icon'
-import '@material/mwc-icon-button'
-import '@material/mwc-list'
-import '@material/mwc-list/mwc-list-item'
-import '@material/mwc-linear-progress'
-import '@material/mwc-snackbar'
-
-/* components */
 import { PendingContainer } from './components/pending-container'
-import { views } from './components/views'
-import { lazyLoad } from './components/lazy-load'
-
-/* shared styles */
 import { sharedStyles } from './styles/shared-styles.js'
+import './views/home-view'
 
 class AppLite extends PendingContainer(LitElement) {
+  static get styles () {
+    return [
+      sharedStyles,
+      css`
+        :host {
+          /* set the sidenav animations vars open / close aside */
+          --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1);
+          --duration: .6s;
+          /* header height */
+          --header-height: 4rem;
+          
+          min-height: 100vh;
+          display: grid;
+          /* handle the aside, content with grid stack layout, 
+            one row [stack] / two columns (desktop version) */
+          grid: [stack] 1fr / min-content [stack] 1fr;
+        }
+
+        #sidenav-open {
+          display: grid;
+          /* grid template with two columns, one for the nav and the other 
+            for the a link (#sidenav-close) that handle the remain space, aside
+            wll be composed of two part: nav (menu with items) and the a link
+            #sidenav-close for close the aside when click on that part */
+          grid-template-columns: [nav] 3fr [escape] 1fr;
+        }
+
+        #sidenav-button, #sidenav-close {
+          user-select: none;
+          touch-action: manipulation;
+        }
+
+        /* mobile width 640px */
+        @media (max-width: 640px) {
+          aside, main {
+            grid-area: stack;
+          }
+
+          #sidenav-open {
+            position: sticky;
+            top: 0;
+            max-height: 100vh;
+            overflow: hidden auto;
+            overscroll-behavior: contain;
+            visibility: hidden; /* not keyboard accessible when closed */
+            will-change: transform;
+            transform: translateX(-110vw);
+            transition:
+              transform var(--duration) var(--easeOutExpo),
+              visibility 0s linear var(--duration);
+          }
+
+          #sidenav-open[active] {
+            visibility: visible;
+            transform: translateX(0);
+            transition: transform var(--duration) var(--easeOutExpo);
+          }
+        }
+
+        @media (min-width: 640px) {
+          #sidenav-button, #sidenav-close {
+            display: none;
+          }
+        }
+
+        nav {
+          display: inline-flex;
+          flex-direction: column;
+          padding: 2rem;
+          font-size: 1.25rem;
+        }
+        nav > h4 {
+          text-transform: uppercase;
+          color: #e2e2e2;
+        }
+        nav > h4:not(:first-child) {
+          margin-block-start: 2rem;
+        }
+        nav > a {
+          text-decoration: none;
+          line-height: 1.25;
+        }
+
+        @media (max-width: 640px) {
+          nav {
+            background-color: #303030;
+            /* shadow the nav / aside block */
+            border-inline-end:1px var(--surface1);
+            box-shadow: 5px 0 40px rgba(0,0,0,.45);
+            font-size: 1.5rem;
+          }
+        }
+
+        /*  Header  */
+        header {
+          padding: 0 3rem;
+          
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          /* set the min header block size */
+          min-block-size: var(--header-height);
+          margin-block-end: 1rem;
+          /* TODO */
+          background-color: purple;
+        }
+
+        .hamburger {
+          --size: 3.5rem;
+          block-size: var(--size);
+          inline-size: var(--size);
+        }
+        .hamburger > svg > line {
+          stroke: #333;
+          /* fill: #333; */
+        }
+
+        /*  Main  */
+      `
+    ]
+  }
   // properties
   static get properties () {
     return {
       title: String,
       offline: Boolean,
-      dark: Boolean,
-      drawerIsOpen: Boolean,
-      maxDrawerWidth: {
-        type: Number,
-        attribute: 'max-drawer-width'
-      },
-      drawerMode: Boolean,
-      currentView: String
+      asideIsOpen: Boolean
     }
   }
 
   constructor () {
     super()
     // init
-    this.drawerIsOpen = false
-    this.maxDrawerWidth = 800
+    this.asideIsOpen = false
     this.offline = !navigator.onLine
-    // routing stuff (some binding)
-    this._initRoutes = this._initRoutes.bind(this)
-    this._homeRoute = this._homeRoute.bind(this)
-    this._oneRoute = this._oneRoute.bind(this)
-    this._twoRoute = this._twoRoute.bind(this)
-    this._threeRoute = this._threeRoute.bind(this)
-    this._notFoundRoute = this._notFoundRoute.bind(this)
-    // init the Routing
-    this._initRoutes()
 
-    // listener for window.resize (some binding)
-    this._drawerOrTabsLayout = this._drawerOrTabsLayout.bind(this)
     this._goingOnline = this._goingOnline.bind(this)
     this._goingOffline = this._goingOffline.bind(this)
   }
 
+  /*
   connectedCallback () {
     super.connectedCallback()
 
-    // init the drawer or tabs layout
-    this._drawerOrTabsLayout()
-
-    // init the listeners
-    window.addEventListener('resize', this._drawerOrTabsLayout)
     window.addEventListener('online', this._goingOnline)
     window.addEventListener('offline', this._goingOffline)
   }
 
   disconnectedCallback () {
-    // disconnect the callbacks
-    window.removeEventListener('resize', this._drawerOrTabsLayout)
     window.removeEventListener('online', this._goingOnline)
     window.removeEventListener('offline', this._goingOffline)
 
     super.disconnectedCallback()
+  } */
+
+  firstUpdated () {
+    this.#initRouter()
+
+    // TEST - listening for nav click
+    const nav = this.renderRoot.querySelector('nav')
+    nav.addEventListener('click', () => {
+      console.log('@CLICK')
+      this.#handleDrawer()
+    })
   }
 
-  static get styles () {
-    return [
-      sharedStyles,
-      css`
+  #initRouter () {
+    const content = this.renderRoot.querySelector('#content')
+    const router = new Router(content)
 
-      [hidden] { 
-        display: none !important; 
+    router.setRoutes([
+      {
+        path: '/',
+        component: 'home-view'
+      },
+      {
+        path: '/one',
+        component: 'one-view',
+        action: () =>
+          import('./views/one-view')
+      },
+      {
+        path: '/two',
+        component: 'two-view',
+        action: () =>
+          import('./views/two-view')
+      },
+      {
+        path: '/three',
+        component: 'three-view',
+        action: () =>
+          import('./views/three-view')
+      },
+      {
+        path: '(.*)',
+        component: 'not-found-view',
+        action: () =>
+          import('./views/not-found-view')
       }
-
-      :host {
-        display: block;
-        background: linear-gradient(
-          to bottom right, var(--mdc-theme-background), var(--my-color));
-
-        /* drawer 100% full screen, default is 256px */ 
-        --mdc-drawer-width: 100%;
-      }
-
-      /* All elements interested have online / offline class */
-
-
-      /* drawer */ 
-      .drawer-content {
-        background-color: var(--mdc-theme-background);
-      }
-
-      .drawer-close-icon {
-        display: block;
-        position: fixed;
-        background-color: var(--mdc-theme-primary);
-        /* bottom centered */ 
-        bottom: 2em;
-        left: 50%;
-        transform: translate(-50%, 0);
-      }
-
-      #container {
-        background-color: var(--mdc-theme-background);
-        /* overflow: hidden; */
-      }
-      
-      .main-content {
-        min-height: 300px;
-        padding: 48px 18px 0 18px;
-      }
-
-      /* fab */ 
-      #fab-menu {
-        position: fixed;
-        bottom: 1.5em;
-        right: 2em;
-      }
-      `
-    ]
-  }
-
-  // init routing service
-  _initRoutes () {
-    // you define some URL's patterns and some callbacks to call
-    // if the current URL matches those patterns
-    page.redirect('/', '/home')
-    page('/home', this._homeRoute)
-    page('/one', this._oneRoute)
-    page('/two', this._twoRoute)
-    page('/three', this._threeRoute)
-    page('*', this._notFoundRoute)
-    page()
-  }
-
-  // routing callback (data driven URLs model)
-  _homeRoute () {
-    this.currentView = views.HOME
-  }
-
-  _oneRoute () {
-    this.currentView = views.ONE
-  }
-
-  _twoRoute () {
-    this.currentView = views.TWO
-  }
-
-  _threeRoute () {
-    this.currentView = views.THREE
-  }
-
-  _notFoundRoute () {
-    this.currentView = views.NOTFOUND
-  }
-
-  _tabsRoute (event) {
-    // retrieve the views (eg. home, one, two)
-    const view = Object.values(views)[event.detail.index]
-    // handle the tab with page.js API (CustomEvent is possible too)
-    if (view) {
-      page(`/${view}`)
-    }
+    ])
   }
 
   // handle back online
   _goingOnline () {
     this.offline = false
-    // TODO
-    const snack = this.shadowRoot.querySelector('mwc-snackbar')
-    snack.setAttribute('labelText', 'Online')
-    snack.show()
+    const snack = this.shadowRoot.querySelector('snack-bar')
   }
 
   // handle going Offline
   _goingOffline () {
     this.offline = true
-    // TODO
-    const snack = this.shadowRoot.querySelector('mwc-snackbar')
-    snack.setAttribute('labelText', 'Offline')
-    snack.show()
+    const snack = this.shadowRoot.querySelector('snack-bar')
   }
 
-  // handle the drawer or tabs layout to render base on screen
-  _drawerOrTabsLayout () {
-    if (window.innerWidth > this.maxDrawerWidth) {
-      this.drawerMode = false
-    } else {
-      this.drawerMode = true
-    }
-  }
-
-  // open / close drawer
-  _handleDrawer () {
-    this.drawerIsOpen = !this.drawerIsOpen
+  // open / close aside nav (drawer)
+  #handleDrawer () {
+    this.asideIsOpen = !this.asideIsOpen
   }
 
   // TODO - Test Async tasks
@@ -229,157 +242,91 @@ class AppLite extends PendingContainer(LitElement) {
     this.dispatchEvent(event)
   }
 
-  // Helper function to render the MainContent
-  _renderMainContent () {
-    switch (this.currentView) {
-      case views.HOME:
-        return lazyLoad(
-          import('./views/view-home'),
-          html`
-            <view-home 
-              ._hasPendingChildren="${this._hasPendingChildren}"
-              ._pendingCount="${this._pendingCount}">
-            </view-home>
-            `
-        )
-      case views.ONE:
-        return lazyLoad(
-          import('./views/view-one'),
-          html`<view-one></view-one>`
-        )
-      case views.TWO:
-        return lazyLoad(
-          import('./views/view-two'),
-          html`<view-two></view-two>`
-        )
-      case views.THREE:
-        return lazyLoad(
-          import('./views/view-three'),
-          html`<view-three></view-three>`
-        )
-      default:
-        return lazyLoad(
-          import('./views/view-notfound'),
-          html`<view-notfound></view-notfound>`
-        )
-    }
-  }
-
   render () {
-    const drawerLayout = html`
-      <mwc-drawer
-            hasHeader 
-            type="modal" 
-            ?open="${this.drawerIsOpen}" 
-            @MDCDrawer:opened="${() => this.drawerIsOpen = true}"
-            @MDCDrawer:closed="${() => this.drawerIsOpen = false}">
-
-            <span slot="title">Drawer Title</span>
-            <span slot="subtitle">subtitle</span>
-
-            <!-- Drawer Menu Content --> 
-            <div class="drawer-content">
-              
-              <mwc-list activatable @selected="${this._logSelected}">
-                <mwc-list-item value="Item0" twoline hasMeta>
-                  <span>Item 0</span>
-                  <span slot="secondary">Secondary line</span>
-                  <mwc-icon slot="meta">info</mwc-icon>
-                </mwc-list-item>
-                <mwc-list-item twoline hasMeta>
-                  <span>Item 1</span>
-                  <span slot="secondary">Secondary line</span>
-                  <mwc-icon slot="meta">info</mwc-icon>
-                </mwc-list-item>
-                <li divider padded role="separator"></li>
-                <mwc-list-item graphic="avatar">
-                  <span>Item 2</span>
-                  <mwc-icon slot="graphic">folder</mwc-icon>
-                </mwc-list-item>
-                <mwc-list-item graphic="avatar">
-                  <span>Item 3</span>
-                  <mwc-icon slot="graphic">folder</mwc-icon>
-                </mwc-list-item>
-              </mwc-list>
-              
-              <!-- button to close the drawer for full width drawer --> 
-              <mwc-icon-button
-                icon="close"
-                class="drawer-close-icon"
-                @click="${() => this.drawerIsOpen = false}">
-              </mwc-icon-button>
-
-            </div>
-
-            <!-- Drawer Content --> 
-            <div id="container" slot="appContent">
-              <mwc-top-app-bar @MDCTopAppBar:nav="${this._handleDrawer}">
-                <!-- navigationIcon fire the @MDCTopAppBar:nav itself --> 
-                <mwc-icon-button slot="navigationIcon" icon="menu"></mwc-icon-button>
-                
-                <div slot="title">${this.title}</div>
-
-                <!-- example of handle click event --> 
-                <mwc-icon-button
-                  icon="message"
-                  slot="actionItems"
-                  @click="${() => console.log('@CLICK >> Message')}">
-                </mwc-icon-button>
-
-                <!-- Offline Icon --> 
-                <mwc-icon 
-                  slot="actionItems"
-                  ?hidden="${!this.offline}"
-                  ?aria-hidden="${!this.offline}">cloud_off</mwc-icon>
-
-              </mwc-top-app-bar>
-
-              <mwc-fab
-                id="fab-menu"
-                icon="menu"
-                label="menu"
-                @click="${this._handleDrawer}">
-              </mwc-fab>
-            </div>
-
-          </mwc-drawer>
-    `
-
-    const tabsLayout = html`
-      <!-- Tabs --> 
-      <mwc-tab-bar @MDCTabBar:activated="${this._tabsRoute}">
-        <mwc-tab label="home"></mwc-tab>
-        <mwc-tab label="one"></mwc-tab>
-        <mwc-tab label="two"></mwc-tab>
-        <mwc-tab label="three"></mwc-tab>
-      </mwc-tab-bar>
-    `
-    const materialSnackbar = html`
-      <mwc-snackbar>
-         <mwc-icon-button icon="close" slot="dismiss"></mwc-icon-button>
-      </mwc-snackbar>
-    `
-
     return html`
-      <!-- Main -->
+      <!-- Progress Bar for Async tasks
+      <mwc-linear-progress 
+        indeterminate 
+        .closed="${!this._hasPendingChildren}">
+      </mwc-linear-progress> -->
+
+      <!-- aside -->
+      <aside id="sidenav-open" ?active=${this.asideIsOpen}>
+        <nav>
+          <h4>My</h4>
+          <a href="#">Dashboard</a>
+          <a href="#">Profile</a>
+          <a href="#">Preferences</a>
+          <a href="#">Archive</a>
+
+          <h4>Settings</h4>
+          <a href="#">Accessibility</a>
+          <a href="#">Theme</a>
+          <a href="#">Admin</a>
+
+          <h4>Pages</h4>
+          <a href="/">Home</a>
+          <a href="/one">One</a>
+          <a href="/two">Two</a>
+          <a href="/three">Three</a>
+          <a href="/xxx">Not Found</a>
+        </nav>
+
+        <!--
+        <a href="#sidenav-open"
+          id="sidenav-close"
+          title="Close Menu"
+          aria-label="Close Menu"
+          @click=${window.history.back}></a> -->
+        <button 
+          style="background: transparent;" @click=${this.#handleDrawer}>
+          X Close
+        </button>
+      </aside>
+
+      <!-- Whole -->
       <main>
+        <!-- Header -->
+        <header>
+          <!-- <a href="#sidenav-open" 
+            id="sidenav-button"
+            class="hamburger"
+            title="Open Menu"
+            aria-label="Open Menu"> -->
+            <button 
+              class="hamburger" 
+              title="Open Menu"
+              aria-label="Open Menu"
+              @click=${this.#handleDrawer}>
+              <!--
+              <svg viewBox="0 0 50 40" role="presentation" focusable="false" aria-label="trigram for heaven symbol">
+                <line x1="0" x2="100%" y1="10%" y2="10%" />
+                <line x1="0" x2="100%" y1="50%" y2="50%" />
+                <line x1="0" x2="100%" y1="90%" y2="90%" />
+              </svg> -->
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.2em" height="1.2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                <g fill="none">
+                  <path d="M4 6h16M4 12h16M4 18h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+              </svg>
+            </button>
+          <!-- </a> -->
+          <h1>Lite - WebApp</h1>
+          <h1>Other Stuff</h1>
+        </header>
 
-        <!-- Progress Bar for Async tasks -->
-        <mwc-linear-progress 
-          indeterminate 
-          .closed="${!this._hasPendingChildren}">
-        </mwc-linear-progress>
+        <!-- Pages content -->
+        <div id="content">
 
-        <!-- Layout --> 
-        ${this.drawerMode ? drawerLayout : tabsLayout}
-        ${this._renderMainContent()}
-
+        </div>
       </main>
-
-      <!-- Snackbar -->
-      ${materialSnackbar}
     `
   }
+
+  /* no shadowed (encapsulated CSS unavailable)
+  createRenderRoot () {
+    return this
+  } */
 }
 
 window.customElements.define('app-lite', AppLite)

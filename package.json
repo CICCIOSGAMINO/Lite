@@ -1,6 +1,6 @@
 {
   "name": "lite",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "WebApp base template build with Lit, Material Design and Web Platform",
   "main": "dist/lite.es.js",
   "exports": "./dist/lite.es.js",
@@ -17,10 +17,12 @@
   },
   "private": false,
   "dependencies": {
+    "@cicciosgamino/color-scheme-button": "^1.1.0",
+    "@cicciosgamino/github-button": "^1.1.0",
     "@vaadin/router": "^1.7.4",
     "lit": "*"
   },
   "devDependencies": {
-    "vite": "^2.5.3"
+    "vite": "^2.6.3"
   }
 }

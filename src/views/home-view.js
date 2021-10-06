@@ -1,14 +1,24 @@
 // view-home (Home)
 import { html, css, LitElement } from 'lit'
+import { sharedStyles } from '../styles/shared-styles.js'
 import '../components/custom-footer'
 
 class HomeView extends LitElement {
   static get styles () {
-    return css`
+    return [
+      sharedStyles,
+      css`
       :host {
         display: block;
       }
-    `
+      button {
+        margin: 3rem;
+        padding: 1rem;
+      }
+      button:focus, button:hover {
+        outline: 1px solid #333;
+      }
+    `]
   }
 
   static get properties () {
@@ -59,6 +69,9 @@ class HomeView extends LitElement {
         <input type="radio" id="dim" name="scheme" value="dim">
         <label for="dim">Dim</label>
       </fieldset>
+
+      <!-- TODO test button -->
+      <button>T</button>
     `
   }
 }

@@ -1,5 +1,6 @@
 // view-one (One)
 import { html, css, LitElement } from 'lit'
+import { sharedStyles } from '../styles/shared-styles.js'
 
 class OneView extends LitElement {
   static get properties () {
@@ -10,11 +11,13 @@ class OneView extends LitElement {
   }
 
   static get styles () {
-    return css`
+    return [
+      sharedStyles,
+      css`
       :host {
         background-color: red;
       }
-    `
+    `]
   }
 
   _handleClick () {

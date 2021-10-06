@@ -2,6 +2,8 @@ Lite - WebApp Template
 ======================
 [TOC]
 
+v4.0.1 (package.json, CHANGELOG, index.html)
+
 Simple web app template build on top of [Lit](https://github.com/lit) , Material Design and Web Platform. This PWA template is based on the bright way showed us from Polymer project and all web entusiasts!
 
 **Let's get start** clone the repo with the template, get a brief view to the running template and start build your WebApp. 
@@ -119,3 +121,16 @@ class AppLite extends PendingContainer(LitElement) {
   }
 }
 ```
+
+# TODO
+Nothing to do? Don't worry ... here the list:
+
+- [ ] Build the auto, light, dark, dimm simple:svg:icon:button
+- [ ] Handle the logo into header, footer etc.
+- [ ] Mark the WebApp version bottom of aside
+- [ ] Building a minimal nice 404 page
+- [ ] Thinking / Implement an easy footer layout
+- [ ] WebApp examples of implementation of base template
+- [ ] Handle the y11 internationalization
+- [ ] Handle an easy state property eg.
+- [ ] Handle the Offline / Online snackbar

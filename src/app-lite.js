@@ -3,6 +3,9 @@ import { Router } from '@vaadin/router'
 
 import { PendingContainer } from './components/pending-container'
 import { sharedStyles } from './styles/shared-styles.js'
+
+import '@cicciosgamino/color-scheme-button'
+import '@cicciosgamino/github-button'
 import './views/home-view'
 
 class AppLite extends PendingContainer(LitElement) {
@@ -11,17 +14,25 @@ class AppLite extends PendingContainer(LitElement) {
       sharedStyles,
       css`
         :host {
-          /* set the sidenav animations vars open / close aside */
-          --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1);
-          --duration: .6s;
-          /* header height */
-          --header-height: 4rem;
+          --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1); /* sidenav animation */
+          --duration: .6s;  /* sidenav animation */
+
+          /* header block size (height) for mobile and desktop */
+          --mobile-header-block-size: 6.4rem;  
+          --dk-header-block-size: 7.2rem;
+          /* header button size mobile / dk */
+          --mobile-header-button-size: 4rem;  
+          --dk-header-button-size: 4.2rem;
           
           min-height: 100vh;
           display: grid;
           /* handle the aside, content with grid stack layout, 
             one row [stack] / two columns (desktop version) */
           grid: [stack] 1fr / min-content [stack] 1fr;
+        }
+
+        aside {
+          z-index: 10;
         }
 
         #sidenav-open {
@@ -63,11 +74,16 @@ class AppLite extends PendingContainer(LitElement) {
             transform: translateX(0);
             transition: transform var(--duration) var(--easeOutExpo);
           }
-        }
 
-        @media (min-width: 640px) {
-          #sidenav-button, #sidenav-close {
-            display: none;
+          #sidenav-close {
+            background: transparent;
+          }
+
+          main[aside] {
+            /* choose the background of content when aside open */
+            background-color: rgba(0,0,0,.45);
+            filter: blur(10px);
+            z-index: 0;
           }
         }
 
@@ -76,6 +92,11 @@ class AppLite extends PendingContainer(LitElement) {
           flex-direction: column;
           padding: 2rem;
           font-size: 1.25rem;
+
+          background-color: #303030;
+          /* shadow the nav / aside block */
+          border-inline-end:1px var(--surface1);
+          box-shadow: 5px 0 40px rgba(0,0,0,.45);
         }
         nav > h4 {
           text-transform: uppercase;
@@ -89,42 +110,105 @@ class AppLite extends PendingContainer(LitElement) {
           line-height: 1.25;
         }
 
-        @media (max-width: 640px) {
-          nav {
-            background-color: #303030;
-            /* shadow the nav / aside block */
-            border-inline-end:1px var(--surface1);
-            box-shadow: 5px 0 40px rgba(0,0,0,.45);
-            font-size: 1.5rem;
-          }
+        #version {
+          position: absolute;
+          bottom: var(--std-margin);
         }
 
         /*  Header  */
         header {
-          padding: 0 3rem;
+          padding-left: 2.1rem;
+          padding-right: 5rem;
+          /* padding: 0 3rem; */
           
           display: flex;
           flex-direction: row;
-          justify-content: space-between;
+          justify-content: flex-start;
           align-items: center;
-          /* set the min header block size */
-          min-block-size: var(--header-height);
+          block-size: var(--mobile-header-block-size);
           margin-block-end: 1rem;
+          gap: 3rem;
+          /* TODO
+          background-color: purple; */
+        }
+
+        /* ------------------ Menu button animation ----------------- */
+        #sidenav-button {
           /* TODO */
-          background-color: purple;
+          width: 27px;
+          height: 27px;
+        }
+        #sidenav-button svg rect {
+          fill: var(--text1);
+        }
+        button:hover #menu-bar-one,
+        button:focus #menu-bar-one,
+        svg:hover > #menu-bar-one,
+        svg:focus > #menu-bar-one {
+          animation: vibrant-first-bar 1s linear infinite none;
+        }
+        button:hover #menu-bar-two,
+        button:focus #menu-bar-two,
+        svg:hover > #menu-bar-two,
+        svg:focus > #menu-bar-two {
+          animation: vibrant-second-bar 1s linear infinite none;
+        }
+        @keyframes vibrant-first-bar {
+          0% { width: 70% }
+          25% { width: 50% }
+          50% { width: 30% }
+          75% { width: 50% }
+          100% { width: 70% }
+        }
+        @keyframes vibrant-second-bar {
+          0% { width: 50% }
+          25% { width: 70% }
+          50% { width: 100% }
+          75% { width: 70% }
+          100% { width: 50% }
         }
 
-        .hamburger {
-          --size: 3.5rem;
-          block-size: var(--size);
-          inline-size: var(--size);
-        }
-        .hamburger > svg > line {
-          stroke: #333;
-          /* fill: #333; */
+        color-scheme-button {
+          width: var(--mobile-header-button-size);
+          height: var(--mobile-header-button-size);
+          --icon-color: var(--text1);
         }
 
-        /*  Main  */
+        github-button {
+          width: var(--mobile-header-button-size);
+          height: var(--mobile-header-button-size);
+          --icon-color: var(--text1);
+        }
+
+        /* -------------------------- Desktop ----------------------- */
+        @media (min-width: 640px) {
+          #sidenav-button, #sidenav-close {
+            display: none;
+          }
+
+          nav {
+            position: relative;
+
+            background-color: inherit;
+            /* shadow the nav / aside block */
+            border-inline-end:1px var(--surface1);
+            box-shadow: none;
+          }
+
+          header {
+            block-size: var(--dk-header-block-size);
+          }
+
+          color-scheme-button {
+            width: var(--dk-header-button-size);
+            height: var(--dk-header-button-size);
+          }
+          
+          github-button {
+            width: var(--dk-header-button-size);
+            height: var(--dk-header-button-size);
+          }
+        }
       `
     ]
   }
@@ -270,49 +354,47 @@ class AppLite extends PendingContainer(LitElement) {
           <a href="/two">Two</a>
           <a href="/three">Three</a>
           <a href="/xxx">Not Found</a>
+
+          <p id="version">${window.webAppVersion}</p>
         </nav>
 
-        <!--
-        <a href="#sidenav-open"
+        <button
           id="sidenav-close"
           title="Close Menu"
           aria-label="Close Menu"
-          @click=${window.history.back}></a> -->
-        <button 
-          style="background: transparent;" @click=${this.#handleDrawer}>
+          @click=${this.#handleDrawer}>
           X Close
         </button>
       </aside>
 
       <!-- Whole -->
-      <main>
+      <main ?aside=${this.asideIsOpen}>
         <!-- Header -->
         <header>
-          <!-- <a href="#sidenav-open" 
-            id="sidenav-button"
-            class="hamburger"
-            title="Open Menu"
-            aria-label="Open Menu"> -->
-            <button 
-              class="hamburger" 
-              title="Open Menu"
-              aria-label="Open Menu"
-              @click=${this.#handleDrawer}>
-              <!--
-              <svg viewBox="0 0 50 40" role="presentation" focusable="false" aria-label="trigram for heaven symbol">
-                <line x1="0" x2="100%" y1="10%" y2="10%" />
-                <line x1="0" x2="100%" y1="50%" y2="50%" />
-                <line x1="0" x2="100%" y1="90%" y2="90%" />
-              </svg> -->
-              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1.2em" height="1.2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                <g fill="none">
-                  <path d="M4 6h16M4 12h16M4 18h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                </g>
-              </svg>
-            </button>
-          <!-- </a> -->
-          <h1>Lite - WebApp</h1>
-          <h1>Other Stuff</h1>
+
+          <!-- menu button -->
+          <button id="sidenav-button" aria-label="Menu"
+            title="menu" @click=${this.#handleDrawer}>
+            <svg class="big" width="27" height="27" 
+              role="img" aria-hidden="true" focusable="false">
+              <rect id="menu-bar-one" width="70%" height="15%"></rect>
+              <rect id="menu-bar-two" y="43%" width="50%" height="15%"></rect>
+              <rect y="85%" width="90%" height="15%"></rect>
+            </svg>
+          </button>
+
+          <h1>Lite</h1>
+          <h1>WebApp</h1>
+
+          <color-scheme-button 
+            title="Toggle Theme"
+            aria-label="Toggle Theme">
+          </color-scheme-button>
+
+          <github-button 
+            link="/CICCIOSGAMINO/Lite.git">
+          </github-button>
+
         </header>
 
         <!-- Pages content -->

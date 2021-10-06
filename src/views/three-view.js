@@ -1,5 +1,6 @@
 // view-three (Three)
 import { html, css, LitElement } from 'lit'
+import { sharedStyles } from '../styles/shared-styles.js'
 
 class ThreeView extends LitElement {
   static get properties () {
@@ -10,11 +11,13 @@ class ThreeView extends LitElement {
   }
 
   static get styles () {
-    return css`
+    return [
+      sharedStyles,
+      css`
       :host {
         background-color: red;
       }
-    `
+    `]
   }
 
   _handleClick () {

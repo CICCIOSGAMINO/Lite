@@ -6,8 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1.0] - 06-10-2021
+### Add
+  - Color Scheme button, Github Button
+  - Minor fix
+
+## [4.0.1] - 22-09-2021
+### Changed
+  - minor fix
+
 ## [4.0.0] - 31-08-2021
-### Added
+### Add
   - Apple splash-screen s png
   - meta theme-color
 ### Changed
@@ -21,11 +30,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Custom Made splash-screen
 
 ## [3.0.0] - 15-06-2021
-### Added
+### Add
   - Vite dev/build workflow
 
 ## [2.2.0] - 20-05-2021
-### Added
+### Add
   - Element custom-footer bug-report Init
 
 ## [2.1.0] - 02-05-2021
@@ -37,5 +46,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Lit package
 
 ## [1.0.0] - 14-12-2020
-### Added
+### Add
 - Init the Repo [@CICCIOSGAMINO](https://github.com/CICCIOSGAMINO).

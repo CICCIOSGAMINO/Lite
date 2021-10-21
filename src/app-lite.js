@@ -20,9 +20,12 @@ class AppLite extends PendingContainer(LitElement) {
           /* header block size (height) for mobile and desktop */
           --mobile-header-block-size: 6.4rem;  
           --dk-header-block-size: 7.2rem;
-          /* header button size mobile / dk */
+          /* header button size */
           --mobile-header-button-size: 4rem;  
           --dk-header-button-size: 4.2rem;
+          /* header menu button size (only mobile)
+          --menu-button-size: 3.3rem; */
+          --menu-button-size: 2.7rem;
           
           min-height: 100vh;
           display: grid;
@@ -117,26 +120,26 @@ class AppLite extends PendingContainer(LitElement) {
 
         /*  Header  */
         header {
-          padding-left: 2.1rem;
-          padding-right: 5rem;
-          /* padding: 0 3rem; */
+          padding-left: 1.7rem;
+          padding-right: 1.7rem;
           
           display: flex;
           flex-direction: row;
-          justify-content: flex-start;
+          justify-content: space-between;
           align-items: center;
           block-size: var(--mobile-header-block-size);
           margin-block-end: 1rem;
-          gap: 3rem;
+          gap: 1rem;
           /* TODO
           background-color: purple; */
         }
 
         /* ------------------ Menu button animation ----------------- */
         #sidenav-button {
-          /* TODO */
-          width: 27px;
-          height: 27px;
+          padding: 0;
+          margin: 0;
+          width: var(--menu-button-size);
+          height: var(--menu-button-size);
         }
         #sidenav-button svg rect {
           fill: var(--text1);
@@ -166,6 +169,20 @@ class AppLite extends PendingContainer(LitElement) {
           50% { width: 100% }
           75% { width: 70% }
           100% { width: 50% }
+        }
+
+        .company-logo {
+          width: var(--mobile-header-button-size);
+          height: var(--mobile-header-button-size);
+        }
+
+        #little_thunder {
+          fill: var(--text1);
+        }
+
+        .title {
+          /* title grow more space than others */
+          flex-grow: 3;
         }
 
         color-scheme-button {
@@ -375,16 +392,29 @@ class AppLite extends PendingContainer(LitElement) {
           <!-- menu button -->
           <button id="sidenav-button" aria-label="Menu"
             title="menu" @click=${this.#handleDrawer}>
-            <svg class="big" width="27" height="27" 
-              role="img" aria-hidden="true" focusable="false">
+            <svg viewBox="0 0 100 100" role="img"
+              aria-hidden="true" focusable="false">
               <rect id="menu-bar-one" width="70%" height="15%"></rect>
               <rect id="menu-bar-two" y="43%" width="50%" height="15%"></rect>
               <rect y="85%" width="90%" height="15%"></rect>
             </svg>
           </button>
 
-          <h1>Lite</h1>
-          <h1>WebApp</h1>
+          <div class="company-logo">
+            <!-- Inline SVG logo -->
+            <svg viewBox="0 0 1024 1024">
+              <g transform="matrix(34.483325,0,0,34.483325,-8904.4735,-10800.524)" fill-rule="evenodd" stroke-width=".0289995">
+                <path id="big_thunder" d="m271.88453 315.15989-2.32432 10.66526h4.78263l-2.83303 10.57301 14.29708-14.29708h-6.73552l3.30434-7.09188z" fill="#c33fde">
+                <title>Big Thunder</title>
+                </path>
+                <path id="little_thunder" d="m265.44531 318.05273-3.55273 13.25782h5.89844l-2.49415 9.30664 2.60743 0.69922 3.40429-12.70508h-5.89843l2.64257-9.86133z" color="#000000" fill="#333333" stroke-width=".0289995" style="-inkscape-stroke:none">
+                <title>Little Thunder</title>
+                </path>
+              </g>
+            </svg>
+          </div>
+
+          <h1 class="title">Lite</h1>
 
           <color-scheme-button 
             title="Toggle Theme"

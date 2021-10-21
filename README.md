@@ -46,7 +46,9 @@ That's the images create from the **script_svgtopng.sh** starting from the svg f
 ```
 
 # Splash Screen
-A splash screen is a graphical control element consisting of a window containing an image, a logo, and the current version of the software, splash screen disappears when the application's main window appears. Splash screen can be very useful in WebApp because if the index.html main file is well done the Splash Screen is immediately present to the user so we can hidden for some millis the loading stuff of the WebApp.
+A splash screen is a graphical element consisting of a fullscreen window containing an image .png (typically a logo), the current version of the software or / and the WebApp name. Splash screen disappears when the application's components are loaded and ready to be showed. Splash screen can be very useful in WebApp because if the index.html main file is well done the Splash Screen is immediately present to the user so we can hidden for some millis all the loading of the WebApp (Yep Js i'm watching you).
+
+In public > images > splash directory you can modify the .svg file with the drawing you need for that device splash screen and when all your .svg file (or only the files you need, delete the others) running the script **script_createsplash.sh** the png files the index.html needs will be created.
 
 # Sidenav
 
@@ -125,12 +127,9 @@ class AppLite extends PendingContainer(LitElement) {
 # TODO
 Nothing to do? Don't worry ... here the list:
 
-- [ ] Build the auto, light, dark, dimm simple:svg:icon:button
-- [ ] Handle the logo into header, footer etc.
-- [ ] Mark the WebApp version bottom of aside
-- [ ] Building a minimal nice 404 page
 - [ ] Thinking / Implement an easy footer layout
 - [ ] WebApp examples of implementation of base template
 - [ ] Handle the y11 internationalization
 - [ ] Handle an easy state property eg.
 - [ ] Handle the Offline / Online snackbar
+- [ ] Examples, one page for each interesting API (ShareAPI, Notification ...)

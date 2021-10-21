@@ -151,7 +151,7 @@
         font-weight: 1 999;
       } */
 
-      /* BLOKK 
+      /* BLOKK */
       @font-face {
         font-family: 'BLOKK';
         src: url('./fonts/BLOKK/BLOKKNeue-Regular.eot');
@@ -162,7 +162,7 @@
             url('./fonts/BLOKK/BLOKKNeue-Regular.ttf') format('truetype');
         font-weight: normal;
         font-style: normal;
-      } */
+      }
 
       * {
         /* reset browser defaults */
@@ -171,11 +171,11 @@
         box-sizing: border-box;
 
         /* colors */
-        --brand: #324fff;
-        --brand: hsl(232, 100,60);
-        --brand-hue: 232;
-        --brand-saturation: 100;
-        --brand-lightness: 60;
+        --brand: #c544df;
+        --brand: hsl(290, 71,57);
+        --brand-hue: 290;
+        --brand-saturation: 71;
+        --brand-lightness: 57;
 
         /* fonts */
         /* Github method to apply system fonts, directly calling them
@@ -372,7 +372,7 @@
         color: var(--text2);
       }
 
-      /* styling for rendering while resources are laoding   GIF-VERSION */
+      /* styling for rendering while resources are loading - image */
       app-lite[unresolved] {
         position: fixed;
         top: 0;
@@ -384,13 +384,16 @@
         background-position: center;
         background-size: 30% auto;
       }
+
+      /* styling for rendering while resources are loading - text */
       app-lite[unresolved]::after {
-        content: "Lite v4.0.0";
+        /* TODO version*/
+        content: "Lite v4.2.0";
         position: fixed;
         left: 0;
         right: 0;
         bottom: 10%;
-        color: #333;
+        color: var(--text1);
         text-align: center;
       }
     </style>
@@ -407,8 +410,8 @@
     <script type="module" src="/src/app-lite.js" crossorigin></script>
 
     <script>
-      // WebApp version (README, package.json, CHANGELOG, index.html)
-      window.webAppVersion = 'v4.1.0'
+      // WebApp version (README, package.json, CHANGELOG, index.html) TODO
+      window.webAppVersion = 'v4.2.0'
 
       // Check if dark mode is supported by browser
       if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
@@ -434,8 +437,8 @@
         console.log(
           `%c %cLite \n%cChamaeleonidae WebApp `,
           `padding: 37px 33px 15px; background:url(${baseUrl}images/icons/icon96x96.png) no-repeat;background-size:cover;`,
-          `font-size: 32px; color: #00e8ff;`,
-          `padding: 10px 0px 0px 0px; font-size: 16px; color: #283198;`
+          `font-size: 32px; color: #c544df;`,
+          `padding: 10px 0px 0px 0px; font-size: 16px; color: #333;`
         )
 
         // when DOMContentLoaded remove the unresolved attribute

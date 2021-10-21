@@ -7,10 +7,12 @@ export const sharedStyles = css`
     background: none;
     color: inherit;
     outline: inherit;
+    line-height: 0;
     cursor: pointer;
   }
   
   svg {
+    display: inline-block;
     outline: none;
   }
 

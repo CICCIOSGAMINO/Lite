@@ -387,8 +387,8 @@
 
       /* styling for rendering while resources are loading - text */
       app-lite[unresolved]::after {
-        /* TODO version*/
-        content: "Lite v4.2.0";
+        /* TODO_VERSION /
+        content: "Lite v4.3.0";
         position: fixed;
         left: 0;
         right: 0;
@@ -410,8 +410,9 @@
     <script type="module" src="/src/app-lite.js" crossorigin></script>
 
     <script>
-      // WebApp version (README, package.json, CHANGELOG, index.html) TODO
-      window.webAppVersion = 'v4.2.0'
+      // WebApp version (README, package.json, CHANGELOG, index.html) 
+      // TODO_VERSION
+      window.webAppVersion = 'v4.3.0'
 
       // Check if dark mode is supported by browser
       if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {

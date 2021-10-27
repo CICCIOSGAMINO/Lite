@@ -4,6 +4,7 @@ import { Router } from '@vaadin/router'
 import { PendingContainer } from './components/pending-container'
 import { sharedStyles } from './styles/shared-styles.js'
 
+import '@cicciosgamino/snack-bar'
 import '@cicciosgamino/color-scheme-button'
 import '@cicciosgamino/github-button'
 import './views/home-view'
@@ -234,6 +235,7 @@ class AppLite extends PendingContainer(LitElement) {
     return {
       title: String,
       offline: Boolean,
+      mobileLayout: Boolean,
       asideIsOpen: Boolean
     }
   }
@@ -243,30 +245,33 @@ class AppLite extends PendingContainer(LitElement) {
     // init
     this.asideIsOpen = false
     this.offline = !navigator.onLine
-
-    this._goingOnline = this._goingOnline.bind(this)
-    this._goingOffline = this._goingOffline.bind(this)
+    this.mobileLayout = 
+      window.innerWidth < 640
   }
 
-  /*
   connectedCallback () {
     super.connectedCallback()
+    // online / offline
+    window.addEventListener('online', this.#goingOnline)
+    window.addEventListener('offline', this.#goingOffline)
+    // match the media query
+    window.matchMedia('(min-width: 640px)')
+      .addEventListener('change', this.#handleResizeToDesktop)
+    window.matchMedia('(max-width: 639px)')
+      .addEventListener('change', this.#handleResizeToMobile)
 
-    window.addEventListener('online', this._goingOnline)
-    window.addEventListener('offline', this._goingOffline)
   }
 
   disconnectedCallback () {
-    window.removeEventListener('online', this._goingOnline)
-    window.removeEventListener('offline', this._goingOffline)
-
+    window.removeEventListener('online', this.#goingOnline)
+    window.removeEventListener('offline', this.#goingOffline)
     super.disconnectedCallback()
-  } */
+  }
 
   firstUpdated () {
     this.#initRouter()
 
-    // TEST - listening for nav click
+    // TODO - listening for nav click
     const nav = this.renderRoot.querySelector('nav')
     nav.addEventListener('click', () => {
       console.log('@CLICK')
@@ -311,20 +316,42 @@ class AppLite extends PendingContainer(LitElement) {
   }
 
   // handle back online
-  _goingOnline () {
+  #goingOnline = () => {
     this.offline = false
-    const snack = this.shadowRoot.querySelector('snack-bar')
+    console.log(`@ONLINE`)
+    this.#showSnackBar('Online')
   }
 
   // handle going Offline
-  _goingOffline () {
+  #goingOffline = () => {
     this.offline = true
-    const snack = this.shadowRoot.querySelector('snack-bar')
+    console.log(`@OFFLINE`)
+    this.#showSnackBar('Offline')
+  }
+
+  #showSnackBar (title) {
+    const snack = 
+      this.renderRoot.querySelector('snack-bar')
+    snack.title = title
+    snack.setAttribute('active', '')
   }
 
   // open / close aside nav (drawer)
   #handleDrawer () {
     this.asideIsOpen = !this.asideIsOpen
+  }
+
+  #handleResizeToDesktop = (e) => {
+    if (e.matches) {
+      this.mobileLayout = false
+      console.log(`@MOBILE >> ${this.mobileLayout}`)
+    }
+  }
+
+  #handleResizeToMobile = (e) => {
+    if (e.matches) {
+      this.mobileLayout = true
+    }
   }
 
   // TODO - Test Async tasks
@@ -432,6 +459,8 @@ class AppLite extends PendingContainer(LitElement) {
 
         </div>
       </main>
+
+      <snack-bar timing="3000"></snack-bar>
     `
   }
 

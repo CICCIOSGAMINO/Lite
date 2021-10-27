@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3.0] - 27-10-2021
+### Add
+  - Handling offline / online snackbar
+  - Handling mobileLayout property
+  - Minor fix
+
 ## [4.2.0] - 21-10-2021
 ### Changed
   - Not-found emoticon with svg

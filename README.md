@@ -2,7 +2,7 @@ Lite - WebApp Template
 ======================
 [TOC]
 
-v4.0.1 (package.json, CHANGELOG, index.html)
+v4.3.0 (package.json, CHANGELOG, index.html)
 
 Simple web app template build on top of [Lit](https://github.com/lit) , Material Design and Web Platform. This PWA template is based on the bright way showed us from Polymer project and all web entusiasts!
 
@@ -49,6 +49,15 @@ That's the images create from the **script_svgtopng.sh** starting from the svg f
 A splash screen is a graphical element consisting of a fullscreen window containing an image .png (typically a logo), the current version of the software or / and the WebApp name. Splash screen disappears when the application's components are loaded and ready to be showed. Splash screen can be very useful in WebApp because if the index.html main file is well done the Splash Screen is immediately present to the user so we can hidden for some millis all the loading of the WebApp (Yep Js i'm watching you).
 
 In public > images > splash directory you can modify the .svg file with the drawing you need for that device splash screen and when all your .svg file (or only the files you need, delete the others) running the script **script_createsplash.sh** the png files the index.html needs will be created.
+
+# Mobile / Desktop
+The two layout, mobile and desktop are handled by the media query set into the CSS and in the application main component *app-lite.js* where the property are triggered by the *matchMedia* method, defined with the listeners into the *connectedCallback* lifecycle.
+
+Mobile / Desktop > min-width: 640px  -  CSS Media Query
+Mobile / Desktop > this.mobileLayout  [true/false] - Property
+
+# Header
+
 
 # Sidenav
 
@@ -127,6 +136,38 @@ class AppLite extends PendingContainer(LitElement) {
 # TODO
 Nothing to do? Don't worry ... here the list:
 
+- [ ] Insert the screenshots in manifest
+```json
+"screenshots" : [
+  {
+    "src": "screenshot1.webp",
+    "sizes": "1280x720",
+    "type": "image/webp"
+  },
+  {
+    "src": "screenshot2.webp",
+    "sizes": "1280x720",
+    "type": "image/webp"
+  }
+]
+```
+
+- [ ] Insert some App shortcuts as example
+```json
+"shortcuts" : [
+  {
+    "name": "New Feature",
+    "url": "/features/feature?action=jumplist",
+    "icons": [
+      {
+        "src": "/icon-feature.1.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+    ]
+  }
+]
+```
 - [ ] Thinking / Implement an easy footer layout
 - [ ] WebApp examples of implementation of base template
 - [ ] Handle the y11 internationalization

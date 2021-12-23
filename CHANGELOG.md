@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.0] - 23-12-2021
+
+### Add
+  - manifest.webmanifest screenshots
+  - maskable icons
+  - manifest.webmanifest shortcuts
+
+### Changed
+  - Updated vite
+
 ## [4.3.0] - 27-10-2021
 ### Add
   - Handling offline / online snackbar

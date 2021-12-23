@@ -1,6 +1,11 @@
 import { css } from 'lit'
 
 export const sharedStyles = css`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   /* clear default button style */
   button {
     border: none;
@@ -17,6 +22,10 @@ export const sharedStyles = css`
   }
 
   h1 {
-    font-size: 2.1rem;
+    font-size: 2.3rem;
+  }
+
+  h5 {
+    font-size: 1.7rem;
   }
 `

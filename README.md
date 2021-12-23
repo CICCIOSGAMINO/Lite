@@ -2,7 +2,7 @@ Lite - WebApp Template
 ======================
 [TOC]
 
-v4.3.0 (package.json, CHANGELOG, index.html)
+v4.4.0 (package.json, CHANGELOG, index.html) - 23-12-2021
 
 Simple web app template build on top of [Lit](https://github.com/lit) , Material Design and Web Platform. This PWA template is based on the bright way showed us from Polymer project and all web entusiasts!
 
@@ -45,10 +45,32 @@ That's the images create from the **script_svgtopng.sh** starting from the svg f
 ./script_svgtopng.sh
 ```
 
-# Splash Screen
+**Splash Screen**
 A splash screen is a graphical element consisting of a fullscreen window containing an image .png (typically a logo), the current version of the software or / and the WebApp name. Splash screen disappears when the application's components are loaded and ready to be showed. Splash screen can be very useful in WebApp because if the index.html main file is well done the Splash Screen is immediately present to the user so we can hidden for some millis all the loading of the WebApp (Yep Js i'm watching you).
 
 In public > images > splash directory you can modify the .svg file with the drawing you need for that device splash screen and when all your .svg file (or only the files you need, delete the others) running the script **script_createsplash.sh** the png files the index.html needs will be created.
+
+**Screenshots**
+New features to use into the manifest.webmanifest to present some screenshot to the user before install te Webapp. Easy create the screenshots with Chrome DevTool > Ctrl + Shift + P > Screenshot and link the images into the manifest file:
+```json
+"screenshots": [
+    {
+      "src": "images/screenshots/screen_one.png",
+      "sizes": "446x668",
+      "type": "image/png"
+    },
+    {
+      "src": "images/screenshots/screen_two.png",
+      "sizes": "446x668",
+      "type": "image/png"
+    }
+  ]
+```
+
+**Maskable icons**
+Maskable icons are able to handle all the variations the different platforms are used to show the icons (windows, android, ios ...)  maskable.app
+
+Fullbleed, Minimum safe area, Circle, Rounded Square, Square, Drop, Cylinder, Squircle
 
 # Mobile / Desktop
 The two layout, mobile and desktop are handled by the media query set into the CSS and in the application main component *app-lite.js* where the property are triggered by the *matchMedia* method, defined with the listeners into the *connectedCallback* lifecycle.

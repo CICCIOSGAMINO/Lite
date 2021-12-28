@@ -2,7 +2,7 @@ Lite - WebApp Template
 ======================
 [TOC]
 
-v4.4.0 (package.json, CHANGELOG, index.html) - 23-12-2021
+v4.5.0 (package.json, CHANGELOG, index.html) - 28-12-2021
 
 Simple web app template build on top of [Lit](https://github.com/lit) , Material Design and Web Platform. This PWA template is based on the bright way showed us from Polymer project and all web entusiasts!
 
@@ -129,7 +129,16 @@ Routing and Dynamic import are handled by [@vaadin/router](https://vaadin.com/ro
   }
 ```
 
-# Async Tasks
+The Vaadin Router object is global, so can be used in every CustsomElement:
+```javascript
+// global vaadin Router object
+window.Router
+
+// navigate with the Vaadin Router (global)
+window.Router.go('/whereever')
+```
+
+# Async Tasks TODO
 Async tasks can dispatch a CustomEvent with a promise into the detail payload, the main app component the *<app-lite>* extends the **PendingContainer** class to permit to the main app component to listening and set the **_hasPendingChildren** and **_pendingCount** properties. The **_pendingCount** is the actually active pending tasks (or children for a parent component) number, when no active pending tasks are present the **_hasPendingChildren** property is set to false, this property is binded to material design web component *</mwc-linear-progress>* to show into UI when tasks are active, of course you can build and handle a parent/child architecture with different components as a **PendingContainer** for async child tasks! Here the pattern implemented in *<app-lite>* : 
 ```javascript
 // pending-container.js
@@ -155,44 +164,28 @@ class AppLite extends PendingContainer(LitElement) {
 }
 ```
 
+# Pages
+These pages are examples of web features, used in Lit WebApplication / Lit CustomElements. Check always the developer console for debug messages.
+
+## /home - Routing
+Two button with a easy example of Routing throught the pages, click the logo to come back to home.
+
+## /one - Fire Event
+Fire a custom event up to the DOM three!
+
+## /two - Text
+Easy example of a page full of text
+
+## /three - MutationObsever (TODO)
+Use the MutationObserver into Lit element to listen for a CSS custom variable changes.
+
+## /four - 
+
 # TODO
 Nothing to do? Don't worry ... here the list:
 
-- [ ] Insert the screenshots in manifest
-```json
-"screenshots" : [
-  {
-    "src": "screenshot1.webp",
-    "sizes": "1280x720",
-    "type": "image/webp"
-  },
-  {
-    "src": "screenshot2.webp",
-    "sizes": "1280x720",
-    "type": "image/webp"
-  }
-]
-```
-
-- [ ] Insert some App shortcuts as example
-```json
-"shortcuts" : [
-  {
-    "name": "New Feature",
-    "url": "/features/feature?action=jumplist",
-    "icons": [
-      {
-        "src": "/icon-feature.1.png",
-        "type": "image/png",
-        "sizes": "192x192"
-      }
-    ]
-  }
-]
-```
 - [ ] Thinking / Implement an easy footer layout
 - [ ] WebApp examples of implementation of base template
 - [ ] Handle the y11 internationalization
-- [ ] Handle an easy state property eg.
-- [ ] Handle the Offline / Online snackbar
+- [ ] Handle an easy state property eg. redux state
 - [ ] Examples, one page for each interesting API (ShareAPI, Notification ...)

@@ -10,10 +10,10 @@ import '@cicciosgamino/github-button'
 import './views/home-view'
 
 class AppLite extends PendingContainer(LitElement) {
-  static get styles () {
-    return [
-      sharedStyles,
-      css`
+	static get styles () {
+		return [
+			sharedStyles,
+			css`
         :host {
           --easeOutExpo: cubic-bezier(0.16, 1, 0.3, 1); /* sidenav animation */
           --duration: .6s;  /* sidenav animation */
@@ -22,7 +22,7 @@ class AppLite extends PendingContainer(LitElement) {
           --mobile-header-block-size: 6.4rem;  
           --dk-header-block-size: 7.2rem;
           /* header button size */
-          --mobile-header-button-size: 4rem;  
+          --mobile-header-button-size: 3.7rem;  
           --dk-header-button-size: 4.2rem;
           /* header menu button size (only mobile)
           --menu-button-size: 3.3rem; */
@@ -172,7 +172,8 @@ class AppLite extends PendingContainer(LitElement) {
           100% { width: 50% }
         }
 
-        .company-logo {
+        #company-logo {
+          padding: 0;
           width: var(--mobile-header-button-size);
           height: var(--mobile-header-button-size);
         }
@@ -228,150 +229,163 @@ class AppLite extends PendingContainer(LitElement) {
           }
         }
       `
-    ]
-  }
-  // properties
-  static get properties () {
-    return {
-      title: String,
-      offline: Boolean,
-      mobileLayout: Boolean,
-      asideIsOpen: Boolean
-    }
-  }
+		]
+	}
+	// properties
+	static get properties () {
+		return {
+			title: String,
+			offline: Boolean,
+			mobileLayout: Boolean,
+			asideIsOpen: Boolean
+		}
+	}
 
-  constructor () {
-    super()
-    // init
-    this.asideIsOpen = false
-    this.offline = !navigator.onLine
-    this.mobileLayout = 
+	constructor () {
+		super()
+		// init
+		this.asideIsOpen = false
+		this.offline = !navigator.onLine
+		this.mobileLayout = 
       window.innerWidth < 640
-  }
+	}
 
-  connectedCallback () {
-    super.connectedCallback()
-    // online / offline
-    window.addEventListener('online', this.#goingOnline)
-    window.addEventListener('offline', this.#goingOffline)
-    // match the media query
-    window.matchMedia('(min-width: 640px)')
-      .addEventListener('change', this.#handleResizeToDesktop)
-    window.matchMedia('(max-width: 639px)')
-      .addEventListener('change', this.#handleResizeToMobile)
+	connectedCallback () {
+		super.connectedCallback()
+		// online / offline
+		window.addEventListener('online', this.#goingOnline)
+		window.addEventListener('offline', this.#goingOffline)
+		// match the media query
+		window.matchMedia('(min-width: 640px)')
+			.addEventListener('change', this.#handleResizeToDesktop)
+		window.matchMedia('(max-width: 639px)')
+			.addEventListener('change', this.#handleResizeToMobile)
 
-  }
+	}
 
-  disconnectedCallback () {
-    window.removeEventListener('online', this.#goingOnline)
-    window.removeEventListener('offline', this.#goingOffline)
-    super.disconnectedCallback()
-  }
+	disconnectedCallback () {
+		window.removeEventListener('online', this.#goingOnline)
+		window.removeEventListener('offline', this.#goingOffline)
+		super.disconnectedCallback()
+	}
 
-  firstUpdated () {
-    this.#initRouter()
+	firstUpdated () {
+		this.#initRouter()
 
-    // TODO - listening for nav click
-    const nav = this.renderRoot.querySelector('nav')
-    nav.addEventListener('click', () => {
-      console.log('@CLICK')
-      this.#handleDrawer()
-    })
-  }
+		// TODO - listening for nav click
+		const nav = this.renderRoot.querySelector('nav')
+		nav.addEventListener('click', () => {
+			console.log('@CLICK')
+			this.#handleDrawer()
+		})
+	}
 
-  #initRouter () {
-    const content = this.renderRoot.querySelector('#content')
-    const router = new Router(content)
+	#initRouter () {
+		const content = this.renderRoot.querySelector('#content')
+		const router = new Router(content)
 
-    router.setRoutes([
-      {
-        path: '/',
-        component: 'home-view'
-      },
-      {
-        path: '/one',
-        component: 'one-view',
-        action: () =>
-          import('./views/one-view')
-      },
-      {
-        path: '/two',
-        component: 'two-view',
-        action: () =>
-          import('./views/two-view')
-      },
-      {
-        path: '/three',
-        component: 'three-view',
-        action: () =>
-          import('./views/three-view')
-      },
-      {
-        path: '(.*)',
-        component: 'not-found-view',
-        action: () =>
-          import('./views/not-found-view')
-      }
-    ])
-  }
+		// Global Vaadin router
+		window.Router = Router
 
-  // handle back online
-  #goingOnline = () => {
-    this.offline = false
-    console.log(`@ONLINE`)
-    this.#showSnackBar('Online')
-  }
+		router.setRoutes([
+			{
+				path: '/',
+				component: 'home-view'
+			},
+			{
+				path: '/one',
+				component: 'one-view',
+				action: () =>
+					import('./views/one-view')
+			},
+			{
+				path: '/two',
+				component: 'two-view',
+				action: () =>
+					import('./views/two-view')
+			},
+			{
+				path: '/three',
+				component: 'three-view',
+				action: () =>
+					import('./views/three-view')
+			},
+			{
+				path: '/four',
+				component: 'four-view',
+				action: () =>
+					import('./views/four-view')
+			},
+			{
+				path: '(.*)',
+				component: 'not-found-view',
+				action: () =>
+					import('./views/not-found-view')
+			}
+		])
+	}
 
-  // handle going Offline
-  #goingOffline = () => {
-    this.offline = true
-    console.log(`@OFFLINE`)
-    this.#showSnackBar('Offline')
-  }
+	// handle back online
+	#goingOnline = () => {
+		this.offline = false
+		console.log('@ONLINE')
+		this.#showSnackBar('Online')
+	}
 
-  #showSnackBar (title) {
-    const snack = 
+	// handle going Offline
+	#goingOffline = () => {
+		this.offline = true
+		console.log('@OFFLINE')
+		this.#showSnackBar('Offline')
+	}
+
+	#goHome = () => {
+		Router.go('/')
+	}
+
+	#showSnackBar (title) {
+		const snack = 
       this.renderRoot.querySelector('snack-bar')
-    snack.title = title
-    snack.setAttribute('active', '')
-  }
+		snack.title = title
+		snack.setAttribute('active', '')
+	}
 
-  // open / close aside nav (drawer)
-  #handleDrawer () {
-    this.asideIsOpen = !this.asideIsOpen
-  }
+	// open / close aside nav (drawer)
+	#handleDrawer () {
+		this.asideIsOpen = !this.asideIsOpen
+	}
 
-  #handleResizeToDesktop = (e) => {
-    if (e.matches) {
-      this.mobileLayout = false
-      console.log(`@MOBILE >> ${this.mobileLayout}`)
-    }
-  }
+	#handleResizeToDesktop = (e) => {
+		if (e.matches) {
+			this.mobileLayout = false
+			console.log(`@MOBILE >> ${this.mobileLayout}`)
+		}
+	}
 
-  #handleResizeToMobile = (e) => {
-    if (e.matches) {
-      this.mobileLayout = true
-    }
-  }
+	#handleResizeToMobile = (e) => {
+		if (e.matches) {
+			this.mobileLayout = true
+		}
+	}
 
-  // TODO - Test Async tasks
-  _firePendingState () {
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve()
-      }, 2000)
-    })
-    const event = new CustomEvent('pending-state', {
-      detail: {
-        title: 'Async task',
-        promise
-      }
-    })
-    this.dispatchEvent(event)
-  }
+	// TODO - Test Async tasks
+	_firePendingState () {
+		const promise = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve()
+			}, 2000)
+		})
+		const event = new CustomEvent('pending-state', {
+			detail: {
+				title: 'Async task',
+				promise
+			}
+		})
+		this.dispatchEvent(event)
+	}
 
-  render () {
-    return html`
+	render () {
+		return html`
       <!-- Progress Bar for Async tasks
       <mwc-linear-progress 
         indeterminate 
@@ -381,23 +395,14 @@ class AppLite extends PendingContainer(LitElement) {
       <!-- aside -->
       <aside id="sidenav-open" ?active=${this.asideIsOpen}>
         <nav>
-          <h4>My</h4>
-          <a href="#">Dashboard</a>
-          <a href="#">Profile</a>
-          <a href="#">Preferences</a>
-          <a href="#">Archive</a>
-
-          <h4>Settings</h4>
-          <a href="#">Accessibility</a>
-          <a href="#">Theme</a>
-          <a href="#">Admin</a>
 
           <h4>Pages</h4>
           <a href="/">Home</a>
           <a href="/one">One</a>
           <a href="/two">Two</a>
           <a href="/three">Three</a>
-          <a href="/xxx">Not Found</a>
+          <a href="/four">Four</a>
+          <a href="/xxx">404</a>
 
           <p id="version">${window.webAppVersion}</p>
         </nav>
@@ -427,7 +432,8 @@ class AppLite extends PendingContainer(LitElement) {
             </svg>
           </button>
 
-          <div class="company-logo">
+          <button id="company-logo" aria-label="Home"
+            title="Home" @click=${this.#goHome}>
             <!-- Inline SVG logo -->
             <svg viewBox="0 0 1024 1024">
               <g transform="matrix(34.483325,0,0,34.483325,-8904.4735,-10800.524)" fill-rule="evenodd" stroke-width=".0289995">
@@ -439,7 +445,7 @@ class AppLite extends PendingContainer(LitElement) {
                 </path>
               </g>
             </svg>
-          </div>
+          </button>
 
           <h1 class="title">Lite</h1>
 
@@ -462,9 +468,9 @@ class AppLite extends PendingContainer(LitElement) {
 
       <snack-bar timing="3000"></snack-bar>
     `
-  }
+	}
 
-  /* no shadowed (encapsulated CSS unavailable)
+	/* no shadowed (encapsulated CSS unavailable)
   createRenderRoot () {
     return this
   } */

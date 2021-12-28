@@ -169,13 +169,16 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+      }
+
+      :root {
 
         /* colors */
         --brand: #c544df;
-        --brand: hsl(290, 71,57);
+        --brand: hsl(290,71% ,57%);
         --brand-hue: 290;
-        --brand-saturation: 71;
-        --brand-lightness: 57;
+        --brand-saturation: 71%;
+        --brand-lightness: 57%;
 
         /* fonts */
         /* Github method to apply system fonts, directly calling them
@@ -217,7 +220,8 @@
         --brand-dark: hsl(
           var(--brand-hue)
           calc(var(--brand-saturation) / 2)
-          calc(var(--brand-lightness) / 1.5));
+          calc(var(--brand-lightness) / 1.5)
+        );
         /* text */
         --text1-dark: hsl(var(--brand-hue) 15% 85%);
         --text2-dark: hsl(var(--brand-hue) 5% 65%);
@@ -412,7 +416,7 @@
     <script>
       // WebApp version (README, package.json, CHANGELOG, index.html) 
       // TODO_VERSION
-      window.webAppVersion = 'v4.4.0'
+      window.webAppVersion = 'v4.5.0'
 
       // Check if dark mode is supported by browser
       if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {

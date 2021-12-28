@@ -1,21 +1,24 @@
 // view-two (Two)
 import { html, css, LitElement } from 'lit'
 import { sharedStyles } from '../styles/shared-styles.js'
+import { viewStyles } from '../styles/view-styles.js'
 
 class TwoView extends LitElement {
-  static get properties () {
-    return {
-      _pendingCount: Number,
-      _hasPendingChildren: Boolean
-    }
-  }
+	static get properties () {
+		return {
+			_pendingCount: Number,
+			_hasPendingChildren: Boolean
+		}
+	}
 
-  static get styles () {
-    return [
-      sharedStyles,
-      css`
+	static get styles () {
+		return [
+			sharedStyles,
+			viewStyles,
+			css`
       :host {
-        background-color: red;
+        display: block;
+        padding: 3rem;
       }
 
       p {
@@ -24,28 +27,10 @@ class TwoView extends LitElement {
         max-inline-size: 50ch
       }
     `]
-  }
+	}
 
-  _handleClick () {
-    console.log('@HANDLE >> CLICK')
-    const p = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('')
-      }, 5000)
-    })
-    const pendingStateEvent = new CustomEvent('pending-state', {
-      bubbles: true,
-      composed: true,
-      detail: {
-        promise: p
-      }
-    })
-
-    this.dispatchEvent(pendingStateEvent)
-  }
-
-  render () {
-    return html`
+	render () {
+		return html`
       <h1>View (Two)</h1>
       <hr>
       <article>
@@ -80,7 +65,7 @@ class TwoView extends LitElement {
         </p>
       </article>
     `
-  }
+	}
 }
 
 customElements.define('two-view', TwoView)

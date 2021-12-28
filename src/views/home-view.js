@@ -1,12 +1,14 @@
 // view-home (Home)
 import { html, css, LitElement } from 'lit'
 import { sharedStyles } from '../styles/shared-styles.js'
+import { viewStyles } from '../styles/view-styles.js'
 import '../components/custom-footer'
 
 class HomeView extends LitElement {
 	static get styles () {
 		return [
 			sharedStyles,
+			viewStyles,
 			css`
       :host {
         display: grid;
@@ -20,12 +22,8 @@ class HomeView extends LitElement {
 
 			}
 
-			.snow {
-				background-color: whitesmoke;
-			}
-
-			.charcoal {
-				background-color: #333;
+			.buttons {
+				padding: 5rem;
 			}
 
       #logo {
@@ -79,11 +77,11 @@ class HomeView extends LitElement {
 		this.dispatchEvent(pendingStateEvent)
 	}
 
-	logInput (event) {
-		// console.log(event)
-		// set theme (whole html document)
-		const theme = event.target.value
-		document.firstElementChild.setAttribute('color-scheme', theme)
+	navToPage (e) {
+		const page = e.target.dataset.page
+		console.log(`@PAGE >> ${page}`)
+		// use the global Vaadin Router
+		window.Router.go(`/${page}`)
 	}
 
 	render () {
@@ -98,6 +96,11 @@ class HomeView extends LitElement {
 				</div>
 			</div>
 
+			<!-- Buttons -->
+			<div class="buttons">
+				<button data-page="one" @click=${this.navToPage}>One</button>
+				<button data-page="two" @click=${this.navToPage}>Two</button>
+			</div>
     `
 	}
 }

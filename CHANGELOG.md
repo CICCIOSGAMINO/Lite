@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5.0] - 28-12-2021
+
+### Add
+  - view-styles.js to handle the style of the views
+  - Add Page /three with
+  - README.md - Description for every page / feature
+
+### Changed
+  - Fix the flow of theme custom vars to Lit CustomElements
+  - Changes the buttons styles
+  - Fix the Pages / Views
+
 ## [4.4.0] - 23-12-2021
 
 ### Add

@@ -6,6 +6,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0] - 11-03-2022 UNRELEASE
+
+### Add
+  - webAppVersion into the console
+  - theme-toggle.js & toggle.css  used to handle the light / dark mode ASAP
+  - fix colors
+
+### Removed
+  - @cicciosgamino/color-scheme-button
+  - All png, jpg images / browser's specific icons handling from index.html
+
+### Changed
+  - README.md features
+  - Dark / Light mode handle structure
+  - Github button has become the Github bottom corner
+
+### Updated
+  - vite to v2.8.6 from v2.7.6
+
 ## [4.5.0] - 28-12-2021
 
 ### Add

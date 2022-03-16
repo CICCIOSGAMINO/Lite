@@ -5,8 +5,6 @@ import { PendingContainer } from './components/pending-container'
 import { sharedStyles } from './styles/shared-styles.js'
 
 import '@cicciosgamino/snack-bar'
-import '@cicciosgamino/color-scheme-button'
-import '@cicciosgamino/github-button'
 import './views/home-view'
 
 class AppLite extends PendingContainer(LitElement) {
@@ -84,8 +82,10 @@ class AppLite extends PendingContainer(LitElement) {
           }
 
           main[aside] {
-            /* choose the background of content when aside open */
-            background-color: rgba(0,0,0,.45);
+            /* choose the background of content when aside open
+            example color
+            background-color: rgba(0,0,0,.45); */
+            background-color: var(--brand);
             filter: blur(10px);
             z-index: 0;
           }
@@ -97,8 +97,10 @@ class AppLite extends PendingContainer(LitElement) {
           padding: 2rem;
           font-size: 1.25rem;
 
-          background-color: #303030;
+          /* nav background - example
+          background-color: #303030; */
           /* shadow the nav / aside block */
+          background-color: var(--surface2);
           border-inline-end:1px var(--surface1);
           box-shadow: 5px 0 40px rgba(0,0,0,.45);
         }
@@ -116,7 +118,7 @@ class AppLite extends PendingContainer(LitElement) {
 
         #version {
           position: absolute;
-          bottom: var(--std-margin);
+          bottom: var(--base-margin);
         }
 
         /*  Header  */
@@ -187,18 +189,6 @@ class AppLite extends PendingContainer(LitElement) {
           flex-grow: 3;
         }
 
-        color-scheme-button {
-          width: var(--mobile-header-button-size);
-          height: var(--mobile-header-button-size);
-          --icon-color: var(--text1);
-        }
-
-        github-button {
-          width: var(--mobile-header-button-size);
-          height: var(--mobile-header-button-size);
-          --icon-color: var(--text1);
-        }
-
         /* -------------------------- Desktop ----------------------- */
         @media (min-width: 640px) {
           #sidenav-button, #sidenav-close {
@@ -216,16 +206,6 @@ class AppLite extends PendingContainer(LitElement) {
 
           header {
             block-size: var(--dk-header-block-size);
-          }
-
-          color-scheme-button {
-            width: var(--dk-header-button-size);
-            height: var(--dk-header-button-size);
-          }
-          
-          github-button {
-            width: var(--dk-header-button-size);
-            height: var(--dk-header-button-size);
           }
         }
       `
@@ -448,15 +428,6 @@ class AppLite extends PendingContainer(LitElement) {
           </button>
 
           <h1 class="title">Lite</h1>
-
-          <color-scheme-button 
-            title="Toggle Theme"
-            aria-label="Toggle Theme">
-          </color-scheme-button>
-
-          <github-button 
-            link="/CICCIOSGAMINO/Lite.git">
-          </github-button>
 
         </header>
 

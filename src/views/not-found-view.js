@@ -3,13 +3,12 @@ import { html, css, LitElement } from 'lit'
 import { sharedStyles } from '../styles/shared-styles.js'
 
 class NotFoundView extends LitElement {
-  static get styles () {
-    return [
-      sharedStyles,
-      css`
+	static get styles () {
+		return [
+			sharedStyles,
+			css`
       :host {
         display: block;
-        /* background-color: red; */
         /* full screen - header - padding */
         block-size: calc(100vh - 7.2rem - 3rem);
         text-align: center;
@@ -21,10 +20,10 @@ class NotFoundView extends LitElement {
         fill: var(--text1);
       }
     `]
-  }
+	}
 
-  render () {
-    return html`
+	render () {
+		return html`
       <!-- <h1>☹️</h1> -->
       <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
         <g>
@@ -35,7 +34,7 @@ class NotFoundView extends LitElement {
       <h2>404 Error</h2>
       <h3>Page Not Found!</h3>
     `
-  }
+	}
 }
 
 customElements.define('not-found-view', NotFoundView)

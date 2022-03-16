@@ -1,9 +1,6 @@
 import { css } from 'lit'
 
 export const sharedStyles = css`
-  /* Page common styles */
-  
-
   /* clear default button style */
   button {
     border: none;

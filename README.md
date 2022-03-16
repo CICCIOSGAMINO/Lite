@@ -2,9 +2,18 @@ Lite - WebApp Template
 ======================
 [TOC]
 
-v4.5.0 (package.json, CHANGELOG, index.html) - 28-12-2021
+v4.6.0 (package.json, CHANGELOG, index.html) - 13-01-2022
 
 Simple web app template build on top of [Lit](https://github.com/lit) , Material Design and Web Platform. This PWA template is based on the bright way showed us from Polymer project and all web entusiasts!
+
+# 🎉 Features
+- 📱 Progressive scaling from desktop to mobile devices
+- 🌗 Dark/Light Mode
+- 🎨 Color Themes
+- 🧑‍💻 Modern async/await style structure
+- 🛠 Customizable with css vars and "parts"
+- ⚓️ URL route management
+
 
 **Let's get start** clone the repo with the template, get a brief view to the running template and start build your WebApp. 
 ```bash
@@ -24,8 +33,14 @@ npm run preview
 # Colors
 We build accessible color system dynamic and configurable. The main idea is grasp from interesting [post](https://web.dev/building-a-color-scheme/) of [Adam Argyle](https://nerdy.dev/). Thnks
 
+# Public 
+Folder with all the static files js, css, images, fonts...
+
 # Images 
-Images folder contains all images the app needs. You can create all the png logo images starting from a svg file with an automatic process write into  **script_svgtopng** script. Let's use it: 
+Images folder contains all images the app needs. To getting start here the list of all images:
+
++ /images/lite.svg          Main SVG of the logo, favicon, script
++ /images/favicon.ico       Legacy browsers fallback for lite.svg favicon  
 
 https://developers.google.com/web/fundamentals/design-and-ux/browser-customization/
 
@@ -71,6 +86,9 @@ New features to use into the manifest.webmanifest to present some screenshot to 
 Maskable icons are able to handle all the variations the different platforms are used to show the icons (windows, android, ios ...)  maskable.app
 
 Fullbleed, Minimum safe area, Circle, Rounded Square, Square, Drop, Cylinder, Squircle
+
+# Light / Dark theme
+The theme-toggle button placed into index.html is responsable for toggle between the light and dark mode. The preference is saved into localStorage *theme-preference* field. The first choice is for the saved value set by the user with the button, second one is the default system *prefers-color-scheme*.
 
 # Mobile / Desktop
 The two layout, mobile and desktop are handled by the media query set into the CSS and in the application main component *app-lite.js* where the property are triggered by the *matchMedia* method, defined with the listeners into the *connectedCallback* lifecycle.

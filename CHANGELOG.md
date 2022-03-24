@@ -6,7 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.0] - 11-03-2022 UNRELEASE
+## [5.0.1] - 24-03-2022
+
+### Add
+  - Demo on https://webapp-lite-example.web.app/
+  - Screenshots into the README.md
+
+### Changed
+  - Update the README.md
+
+## [5.0.0] - 11-03-2022
 
 ### Add
   - webAppVersion into the console

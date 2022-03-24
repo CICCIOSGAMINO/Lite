@@ -2,26 +2,34 @@ Lite - WebApp Template
 ======================
 [TOC]
 
-v4.6.0 (package.json, CHANGELOG, index.html) - 13-01-2022
+v5.0.1 (package.json, CHANGELOG, index.html) - 24-03-2022
 
-Simple web app template build on top of [Lit](https://github.com/lit) , Material Design and Web Platform. This PWA template is based on the bright way showed us from Polymer project and all web entusiasts!
+Simple web app template build on top of [Lit](https://github.com/lit) minimal design and web platform latest APIs. This PWA template is based on the bright way showed us from [Polymer project](https://polymer-library.polymer-project.org/3.0/docs/quick-tour) and all web entusiasts! 
+
+[Demo](https://webapp-lite-example.web.app/)
 
 # 🎉 Features
-- 📱 Progressive scaling from desktop to mobile devices
-- 🌗 Dark/Light Mode
+- 📱 Progressive/Response Design
+- 🌗 Dark/Light Mode from ground
 - 🎨 Color Themes
 - 🧑‍💻 Modern async/await style structure
 - 🛠 Customizable with css vars and "parts"
 - ⚓️ URL route management
 
+![Lite - Light](https://webapp-lite-example.web.app/images/docs/lite-light.png)
 
-**Let's get start** clone the repo with the template, get a brief view to the running template and start build your WebApp. 
+![Lite - Dark](https://webapp-lite-example.web.app/images/docs/lite-dark.png)
+
+
+**Let's get start**, scaffolding your webapp cloning the code from the Lite repo, and go deep into the code to customize your WebApp.
 ```bash
 git clone --depth=1 https://github.com/CICCIOSGAMINO/Lite.git . && rm -rf ./.git
 ```
 
 Vite is the framework used to dev / build / bundle and server the Lite WebApp template. So let's get it a try:
 ```bash
+npm install
+
 # use Vite dev server
 npm run dev
 # build into dist folder
@@ -31,28 +39,33 @@ npm run preview
 ```
 
 # Colors
-We build accessible color system dynamic and configurable. The main idea is grasp from interesting [post](https://web.dev/building-a-color-scheme/) of [Adam Argyle](https://nerdy.dev/). Thnks
+We build accessible color system dynamic and configurable. The main idea is grasped from interesting [post](https://web.dev/building-a-color-scheme/) of [Adam Argyle](https://nerdy.dev/). Thnks
 
 # Public 
-Folder with all the static files js, css, images, fonts...
+Folder with all the static files manifest.webmanifest, js, css, images, fonts...
 
 # Images 
 Images folder contains all images the app needs. To getting start here the list of all images:
 
 + /images/lite.svg          Main SVG of the logo, favicon, script
-+ /images/favicon.ico       Legacy browsers fallback for lite.svg favicon  
++ /images/favicon.ico       Legacy browsers fallback for lite.svg favicon 
++ /images/docs              Use into README.md
++ /images/icons             Fallback icons if needed
++ /images/screenshots       Screenshots used into manifest.webmanifest
++ /images/shortcuts         Used for shortcuts of manifest.webmanifest
++ /images/favicon.ico       Fallback favicon.ico for lite.svg icon
 
 https://developers.google.com/web/fundamentals/design-and-ux/browser-customization/
 
-The **script_svgtopng.sh** will create all the png images you need for: 
+The **script_svgtopng.sh** will create all the png fallback images if you need: 
 
 + all meta tag into index.html
-+ images linked into manifest.json
++ images linked into manifest.json (not vectorial)
 + website ico
 
 That's the images create from the **script_svgtopng.sh** starting from the svg file you insert into the images folder (insert only one svg, squared file):
 
-**To runs the script you need imageMagick and InkScape installed!**
+**To runs the script you need imageMagick and InkScape installed!** With the latest version of the major browser you don't need to generate the jpg/png images to fallback the svg images.
 
 ```bash
 # launch the script in a folder with a svg squared logo image to produce 
